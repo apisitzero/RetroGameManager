@@ -1,6 +1,7 @@
-# 🎮 Retro Game & SD Card Manager
+# 🎮 Retro Game & SD Card Manager เวอร์ชั่น เบต้า 1.0 
 > **โปรแกรมจัดการไฟล์เกมและเมมโมรี่การ์ดเรโทรแบบเชื่อมต่อตรง (Direct Memory Binding)**
 > จัดทำโดย: **เพจ เล่าเรื่องเกม** (https://www.facebook.com/tellgames/)
+<img width="491" height="521" alt="download" src="https://github.com/user-attachments/assets/5349a109-cac3-4b0f-b10c-21fd56758945" />
 
 ---
 
