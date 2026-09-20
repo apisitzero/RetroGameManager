@@ -4,7 +4,7 @@
 > เปิดให้ใช้งานกัน ฟรีๆ ให้เพื่อนๆ จัดการเกมใน SD CARD ได้อย่างง่ายดาย 
 
 ช่วยค่ากาแฟ ได้ ที่ QR CORE เเสกนได้เลย 
-
+---
 <img width="491" height="521" alt="download" src="https://github.com/user-attachments/assets/5349a109-cac3-4b0f-b10c-21fd56758945" />
 
 
