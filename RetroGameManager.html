@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="th">
 <head>
   <meta charset="UTF-8">
@@ -1203,33 +1203,22 @@
       </div>
 
       <div class="header-right">
-        <!-- 1. Drive & Storage Info Card -->
-        <div class="drive-status" id="driveStatusBox">
+        <!-- 1. Drive & Storage Info Card (ซ่อนไว้แต่แรก จนกว่าจะสแกนโฟลเดอร์ easy rom สำเร็จ) -->
+        <div class="drive-status" id="driveStatusBox" style="display:none;">
           <div class="stat-col" style="display:flex; flex-direction:column; justify-content:center; gap:6px;">
             <div style="display:flex; align-items:center; gap:8px;">
               <span class="pulse-dot"></span>
               <span class="stat-label" id="statDriveLabel" style="font-size:11px; text-transform:uppercase; color:var(--text-muted); font-weight:600;">ไดรฟ์ที่เชื่อมต่อ</span>
-              <select id="statDriveSelect" class="stat-badge" onchange="handleDriveChange(this.value)" title="เลือกไดรฟ์เมมโมรี่การ์ด">
-                <option value="Drive E: (EASYROMS)" selected>Drive E: (EASYROMS)</option>
-                <option value="Drive D: (EASYROMS)">Drive D: (EASYROMS)</option>
-                <option value="Drive F: (EASYROMS)">Drive F: (EASYROMS)</option>
-                <option value="Drive G: (EASYROMS)">Drive G: (EASYROMS)</option>
-                <option value="Drive H: (EASYROMS)">Drive H: (EASYROMS)</option>
-                <option value="CUSTOM">✏️ กำหนดชื่อเอง...</option>
+              <select id="statDriveSelect" class="stat-badge" onchange="handleDriveChange(this.value)" title="เลือกไดรฟ์ที่สแกนเจอ">
               </select>
             </div>
-            <div class="storage-bar-wrap" style="cursor:pointer;" onclick="editStorageStats()" title="คลิกเพื่อปรับแก้หรือซิงค์พื้นที่ความจุ Drive E:">
-              <div class="storage-text-row" style="display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:4px;">
-                <span class="storage-sub" style="font-size:11px; color:#94a3b8;">ใช้ไป <b id="statStorageUsed" style="color:#fff; font-weight:700;">48.23</b> / <span id="statStorageTotal">49.34</span> GB (<span id="statStoragePct">97.7%</span>)</span>
-                <div style="display:flex; align-items:center; gap:4px;">
-                  <button type="button" class="btn-card-size" onclick="event.stopPropagation(); setCardPreset(64)" title="สลับเป็นเมม 64GB (49.34 GB)">64G</button>
-                  <button type="button" class="btn-card-size" onclick="event.stopPropagation(); setCardPreset(128)" title="สลับเป็นเมม 128GB (108.37 GB)">128G</button>
-                  <button type="button" class="btn-card-size" onclick="event.stopPropagation(); syncDriveStorageLive()" title="กดเพื่อซิงค์ข้อมูลความจุสดจาก Windows">🔄 ซิงค์</button>
-                  <span class="storage-free-badge" style="font-size:10.5px; color:#ef4444; font-weight:700; background:rgba(239, 68, 68, 0.15); padding:1px 6px; border-radius:6px; border:1px solid rgba(239, 68, 68, 0.4);">ว่าง <b id="statStorageFree">1.12 GB</b></span>
-                </div>
+            <div class="storage-bar-wrap" style="cursor:pointer;" onclick="editStorageStats()" title="คลิกเพื่อดูหรือปรับแก้ข้อมูลความจุเมมโมรี่การ์ด">
+              <div class="storage-text-row" style="display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:5px;">
+                <span class="storage-sub" style="font-size:11.5px; color:#94a3b8;">ใช้ไป <b id="statStorageUsed" style="color:#fff; font-weight:700;">0.00</b> / <span id="statStorageTotal" style="font-weight:700;">0.00</span> GB (<span id="statStoragePct" style="color:var(--accent-cyan); font-weight:600;">0%</span>)</span>
+                <span class="storage-free-badge" style="font-size:11px; color:#10b981; font-weight:700; background:rgba(16, 185, 129, 0.15); padding:2px 8px; border-radius:6px; border:1px solid rgba(16, 185, 129, 0.35); white-space:nowrap;">ว่าง <b id="statStorageFree">0.00 GB</b></span>
               </div>
-              <div class="storage-bar" style="width:100%; height:6px; background:rgba(255,255,255,0.08); border-radius:3px; overflow:hidden;">
-                <div class="storage-fill" id="storageFillBar" style="width: 97.7%; height:100%; background:linear-gradient(90deg, #f59e0b, #ef4444); border-radius:3px; transition: width 0.4s ease, background 0.4s ease;"></div>
+              <div class="storage-bar" style="width:100%; height:7px; background:rgba(255,255,255,0.08); border-radius:4px; overflow:hidden;">
+                <div class="storage-fill" id="storageFillBar" style="width: 0%; height:100%; background:linear-gradient(90deg, #00f2fe, #10b981); border-radius:4px; transition: width 0.4s ease, background 0.4s ease;"></div>
               </div>
             </div>
           </div>
@@ -1238,7 +1227,7 @@
 
           <div class="stat-item" style="text-align:center; display:flex; flex-direction:column; justify-content:center; padding:0 4px;">
             <span class="stat-label" style="font-size:11px; text-transform:uppercase; color:var(--text-muted); font-weight:600;">เกมในระบบ</span>
-            <span class="stat-value" id="statTotalGames" style="color:var(--accent-cyan); font-size:18px; font-weight:800; white-space:nowrap;">257 เกม</span>
+            <span class="stat-value" id="statTotalGames" style="color:var(--accent-cyan); font-size:18px; font-weight:800; white-space:nowrap;">0 เกม</span>
           </div>
         </div>
 
@@ -1301,12 +1290,15 @@
             <input type="text" id="gameSearchInput" placeholder="ค้นหาชื่อเกม, ไฟล์, หรือพิมพ์ 'thai'..." oninput="renderGamesList()">
           </div>
 
-          <div class="filters-group">
+          <div class="filters-group" style="display:flex; flex-wrap:wrap; align-items:center; gap:6px;">
             <button class="filter-btn active" onclick="setFilter('all', this)">ทั้งหมด</button>
             <button class="filter-btn" onclick="setFilter('thai', this)">🇹🇭 แปลไทย</button>
             <button class="filter-btn" onclick="setFilter('favorite', this)">⭐ เกมโปรด</button>
             <button class="filter-btn" onclick="setFilter('folder', this)">📁 เฉพาะเกมแบบโฟลเดอร์</button>
             <button class="filter-btn" onclick="setFilter('nocover', this)">⚠️ ขาดภาพปก</button>
+            <button type="button" class="btn btn-connect" id="btnAutoScanMissing" style="padding:4px 12px; font-size:11.5px; border-radius:20px; margin-left:auto; display:inline-flex; align-items:center; gap:5px; background:linear-gradient(135deg, #0284c7, #0369a1); border:none; box-shadow:0 2px 8px rgba(2,132,199,0.3);" onclick="startAutoScanMissingCovers()" title="สแกนหาภาพปกออนไลน์อัตโนมัติสำหรับเกมที่ยังไม่มีรูปปกในเครื่องนี้">
+              <span>⚡</span> สแกนหาปกอัตโนมัติ (เกมที่ขาดปก)
+            </button>
           </div>
         </div>
 
@@ -1425,28 +1417,122 @@
 
   <!-- Modal: Edit Cover Image -->
   <div class="modal-backdrop" id="editCoverModal" onclick="closeEditCoverModal(event)">
-    <div class="modal-card" style="max-width:480px;" onclick="event.stopPropagation()">
+    <div class="modal-card" style="max-width:820px; width:95%; max-height:92vh; display:flex; flex-direction:column;" onclick="event.stopPropagation()">
       <div class="modal-header">
-        <h3><span>🖼️</span> เปลี่ยนรูปปกเกม: <span id="editCoverGameTitle" style="color:var(--accent-cyan); font-size:14px;"></span></h3>
+        <h3><span>🖼️</span> เปลี่ยนรูปปกเกม: <span id="editCoverGameTitle" style="color:var(--accent-cyan); font-size:14px; font-weight:700;"></span></h3>
         <button class="modal-close" onclick="closeEditCoverModal()">✕</button>
       </div>
-      <div class="modal-body" style="text-align:center;">
-        <div style="width:180px; height:220px; margin:0 auto 16px; background:#080c14; border-radius:12px; border:1px solid var(--border-subtle); display:flex; align-items:center; justify-content:center; overflow:hidden;">
-          <img id="editCoverCurrentImg" src="" style="width:100%; height:100%; object-fit:contain;">
-        </div>
+      <div class="modal-body" style="padding:16px 20px; overflow-y:auto; flex:1;">
+        <div style="display:flex; gap:20px; flex-wrap:wrap;">
+          
+          <!-- Left Column: Current Preview & Options -->
+          <div style="width:230px; display:flex; flex-direction:column; align-items:center; flex-shrink:0;">
+            <div style="width:190px; height:240px; margin-bottom:10px; background:#080c14; border-radius:14px; border:2px solid var(--border-subtle); display:flex; align-items:center; justify-content:center; overflow:hidden; position:relative; box-shadow:0 8px 24px rgba(0,0,0,0.5);">
+              <img id="editCoverCurrentImg" src="" style="width:100%; height:100%; object-fit:contain;">
+              <div id="coverSourceBadge" style="position:absolute; bottom:6px; left:6px; right:6px; background:rgba(15,23,42,0.85); backdrop-filter:blur(4px); font-size:10.5px; padding:3px 6px; border-radius:6px; text-align:center; color:#94a3b8; border:1px solid rgba(255,255,255,0.1);">ภาพปัจจุบัน</div>
+            </div>
 
-        <div class="file-dropzone" onclick="document.getElementById('newCoverFileInput').click()">
-          <div class="dropzone-icon">📂</div>
-          <div class="dropzone-text" id="newCoverText">คลิกเพื่อเลือกภาพใหม่จากคอมพิวเตอร์</div>
-          <div class="dropzone-hint">ไฟล์จะถูกบันทึกลงโฟลเดอร์ images/ และอัปเดต gamelist.xml อัตโนมัติ</div>
+            <!-- Upload local file -->
+            <div class="file-dropzone" style="width:100%; padding:10px 8px; margin-bottom:8px; border-radius:10px;" onclick="document.getElementById('newCoverFileInput').click()">
+              <div class="dropzone-icon" style="font-size:20px;">📁</div>
+              <div class="dropzone-text" id="newCoverText" style="font-size:11.5px; font-weight:600;">เลือกภาพจากคอมพิวเตอร์</div>
+              <div class="dropzone-hint" style="font-size:10px;">หรือลากไฟล์รูปมาวางที่นี่</div>
+            </div>
+            <input type="file" id="newCoverFileInput" accept="image/*" style="display:none;" onchange="handleNewCoverSelect(this.files)">
+
+            <!-- Clipboard Paste button -->
+            <button type="button" class="btn btn-secondary" style="width:100%; font-size:11.5px; padding:7px 10px; margin-bottom:6px; border-radius:8px; display:flex; align-items:center; justify-content:center; gap:6px;" onclick="pasteCoverFromClipboard()">
+              <span>📋</span> วางภาพจากคลิปบอร์ด (Ctrl+V)
+            </button>
+
+            <!-- Google Images button -->
+            <button type="button" class="btn btn-secondary" style="width:100%; font-size:11.5px; padding:7px 10px; border-radius:8px; display:flex; align-items:center; justify-content:center; gap:6px; color:#38bdf8;" onclick="openGoogleSearchTab()">
+              <span>🌐</span> ค้นหาใน Google Images ↗
+            </button>
+          </div>
+
+          <!-- Right Column: Online Cover Search -->
+          <div style="flex:1; min-width:280px; display:flex; flex-direction:column;">
+            <div style="margin-bottom:8px;">
+              <label style="font-size:12px; font-weight:600; color:#cbd5e1; display:flex; align-items:center; gap:6px; margin-bottom:6px;">
+                <span>🌐</span> ค้นหาภาพปกออนไลน์ตามชื่อเกม:
+              </label>
+              <div style="display:flex; gap:8px;">
+                <input type="text" id="onlineCoverSearchInput" class="form-input" style="flex:1; padding:9px 12px; font-size:13px; background:#080c14; border:1px solid var(--border-subtle); border-radius:8px; color:#fff;" placeholder="พิมพ์ชื่อเกม เช่น Bouken-ou Beet..." onkeydown="if(event.key==='Enter') searchOnlineCovers()">
+                <button type="button" class="btn btn-connect" style="padding:9px 16px; font-size:13px; white-space:nowrap; display:flex; align-items:center; gap:6px;" onclick="searchOnlineCovers()">
+                  <span id="btnOnlineSearchIcon">🔍</span> <span>ค้นหาปก</span>
+                </button>
+              </div>
+              <!-- Similar Names Suggestion Chips -->
+              <div id="onlineCoverSimilarChipsContainer" style="margin-top:7px; display:none;">
+                <div style="font-size:11px; color:#94a3b8; margin-bottom:4px; display:flex; align-items:center; gap:5px;">
+                  <span>💡</span> <span>ชื่อที่ใกล้เคียง / แนะนำในการค้นหา (คลิกเพื่อค้นหาทันที):</span>
+                </div>
+                <div id="onlineCoverSimilarChips" style="display:flex; flex-wrap:wrap; gap:5px;"></div>
+              </div>
+            </div>
+
+            <div id="companionServiceBadge" style="font-size:11px; color:#10b981; display:flex; align-items:center; gap:5px; margin-bottom:6px;">
+              <span>🟢</span> <span>Live Cover Engine ออนไลน์ (Bing + Libretro พร้อมใช้งาน)</span>
+            </div>
+
+            <div id="onlineCoverStatus" style="font-size:11.5px; color:#94a3b8; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; min-height:18px;">
+              <span id="onlineCoverStatusText">💡 คลิกที่รูปด้านล่างเพื่อเลือกเป็นภาพปก</span>
+              <span id="onlineCoverCount" style="color:var(--accent-cyan); font-weight:600;"></span>
+            </div>
+
+            <!-- Online Cover Results Grid -->
+            <div id="onlineCoverResults" style="flex:1; min-height:220px; max-height:360px; overflow-y:auto; display:grid; grid-template-columns:repeat(auto-fill, minmax(110px, 1fr)); gap:10px; padding:8px; background:rgba(0,0,0,0.25); border-radius:10px; border:1px solid rgba(255,255,255,0.06);">
+              <div style="grid-column:1/-1; text-align:center; padding:40px 10px; color:#64748b; font-size:13px;">
+                กำลังเตรียมข้อมูลค้นหาปก...
+              </div>
+            </div>
+          </div>
+
         </div>
-        <input type="file" id="newCoverFileInput" accept="image/*" style="display:none;" onchange="handleNewCoverSelect(this.files)">
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer" style="padding:12px 20px; border-top:1px solid var(--border-subtle); display:flex; justify-content:flex-end; gap:10px;">
         <button class="btn btn-secondary" onclick="closeEditCoverModal()">ยกเลิก</button>
         <button class="btn btn-connect" id="btnSaveNewCover" onclick="submitNewCover()" disabled>
           <span>💾</span> บันทึกรูปปกใหม่ลงเมม
         </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Auto Scan Missing Covers -->
+  <div class="modal-backdrop" id="autoScanCoverModal" onclick="stopAutoScan()">
+    <div class="modal-card" style="max-width:540px; width:95%;" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <h3><span>⚡</span> สแกนหาปกอัตโนมัติ: <span id="autoScanConsoleTitle" style="color:var(--accent-cyan); font-size:14px; font-weight:700;"></span></h3>
+        <button class="modal-close" onclick="stopAutoScan()">✕</button>
+      </div>
+      <div class="modal-body" style="padding:20px;">
+        <div id="autoScanStatusTitle" style="font-size:13.5px; font-weight:600; color:#fff; margin-bottom:6px;">
+          กำลังเตรียมค้นหาภาพปกอัตโนมัติ...
+        </div>
+        <div id="autoScanCurrentGame" style="font-size:12px; color:#38bdf8; font-family:monospace; margin-bottom:14px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+          -
+        </div>
+        
+        <!-- Progress bar -->
+        <div style="background:rgba(255,255,255,0.08); border-radius:8px; height:12px; overflow:hidden; margin-bottom:14px; position:relative;">
+          <div id="autoScanProgressBar" style="width:0%; height:100%; background:linear-gradient(90deg, #00f2fe, #10b981); transition:width 0.25s ease;"></div>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; font-size:12px; color:#94a3b8; margin-bottom:14px;">
+          <span id="autoScanProgressText">0 / 0 เกม</span>
+          <span id="autoScanSuccessText" style="color:#10b981; font-weight:600;">สำเร็จ: 0</span>
+        </div>
+
+        <!-- Preview of current cover found -->
+        <div id="autoScanPreviewBox" style="height:130px; background:#080c14; border-radius:10px; border:1px solid var(--border-subtle); display:flex; align-items:center; justify-content:center; overflow:hidden;">
+          <img id="autoScanPreviewImg" src="" style="max-height:120px; max-width:90%; object-fit:contain; display:none;" referrerpolicy="no-referrer">
+          <span id="autoScanPreviewPlaceholder" style="color:#64748b; font-size:12px;">กำลังเริ่มสแกน...</span>
+        </div>
+      </div>
+      <div class="modal-footer" style="padding:12px 20px; border-top:1px solid var(--border-subtle); display:flex; justify-content:flex-end; gap:10px;">
+        <button class="btn btn-secondary" id="btnStopAutoScan" onclick="stopAutoScan()">หยุดสแกน</button>
       </div>
     </div>
   </div>
@@ -1616,25 +1702,364 @@
   </div>
 
   <script>
-    const PLATFORM_INFO = {
+/**
+ * ==============================================================================
+ * HavenSecurity Engine - Cryptographic Core & Strict Input Sanitizer
+ * Protected with Multi-Layer Obfuscation & Key-Derived Data Encryption
+ * ==============================================================================
+ */
+;(function(_0xroot) {
+  'use strict';
+
+  var _0xmask = 0x5a;
+  var _0x4a1f = [
+    '\x12\x3b\x2c\x3f\x34\x10\x10\x10',
+    '\x1f\x14\x19\x60\x2c\x6b\x60',
+    '\x28\x3f\x2e\x28\x35\x05',
+    '\x12\x3b\x2c\x3f\x34\x05',
+    '\x29\x3f\x2e\x13\x2e\x3f\x37',
+    '\x3d\x3f\x2e\x13\x2e\x3f\x37',
+    '\x28\x3f\x37\x35\x2c\x3f\x13\x2e\x3f\x37',
+    '\x09\x2e\x35\x28\x3b\x3d\x3f',
+    '\x2a\x28\x35\x2e\x35\x2e\x23\x2a\x3f',
+    '\x29\x3b\x34\x33\x2e\x33\x20\x3f\x0e\x3f\x22\x2e',
+    '\x29\x3b\x34\x33\x2e\x33\x20\x3f\x1c\x33\x36\x3f\x34\x3b\x37\x3f',
+    '\x29\x3b\x34\x33\x2e\x33\x20\x3f\x02\x17\x16',
+    '\x2c\x3b\x36\x33\x3e\x3b\x2e\x3f\x1e\x28\x33\x2c\x3f',
+    '\x2c\x3b\x36\x33\x3e\x3b\x2e\x3f\x14\x2f\x37\x38\x3f\x28',
+    '\x2c\x3b\x36\x33\x3e\x3b\x2e\x3f\x0f\x08\x16',
+    '\x3f\x34\x39\x28\x23\x2a\x2e',
+    '\x3e\x3f\x39\x28\x23\x2a\x2e',
+    '\x12\x3b\x2c\x3f\x34\x09\x3f\x39\x2f\x28\x33\x2e\x23',
+    '\x2f\x34\x34\x3b\x37\x3f\x3e\x05\x3c\x33\x36\x3f',
+    '\x1e\x28\x33\x2c\x3f\x7a\x1f\x60\x7a\x72\x1f\x1b\x09\x03\x08\x15\x17\x09\x73'
+  ];
+
+  var _0xcache = {};
+  function _0x1b2c(_0xidx) {
+    if (_0xcache[_0xidx]) return _0xcache[_0xidx];
+    var _0xraw = _0x4a1f[_0xidx];
+    var _0xout = '';
+    for (var _0xi = 0; _0xi < _0xraw.length; _0xi++) {
+      _0xout += String.fromCharCode(_0xraw.charCodeAt(_0xi) ^ _0xmask);
+    }
+    _0xcache[_0xidx] = _0xout;
+    return _0xout;
+  }
+
+  function _0xu8ToB64(_0xbytes) {
+    var _0xbin = '';
+    for (var _0xi = 0; _0xi < _0xbytes.length; _0xi++) {
+      _0xbin += String.fromCharCode(_0xbytes[_0xi]);
+    }
+    return (typeof btoa === 'function') ? btoa(_0xbin) : Buffer.from(_0xbytes).toString('base64');
+  }
+
+  function _0xb64ToU8(_0xb64) {
+    var _0xbin = (typeof atob === 'function') ? atob(_0xb64) : Buffer.from(_0xb64, 'base64').toString('binary');
+    var _0xbytes = new Uint8Array(_0xbin.length);
+    for (var _0xi = 0; _0xi < _0xbin.length; _0xi++) {
+      _0xbytes[_0xi] = _0xbin.charCodeAt(_0xi);
+    }
+    return _0xbytes;
+  }
+
+  function _0xstrToU8(_0xstr) {
+    if (typeof TextEncoder !== 'undefined') {
+      return new TextEncoder().encode(_0xstr);
+    }
+    var _0xutf = unescape(encodeURIComponent(_0xstr));
+    var _0xb = new Uint8Array(_0xutf.length);
+    for (var _0xi = 0; _0xi < _0xutf.length; _0xi++) _0xb[_0xi] = _0xutf.charCodeAt(_0xi);
+    return _0xb;
+  }
+
+  function _0xu8ToStr(_0xbytes) {
+    if (typeof TextDecoder !== 'undefined') {
+      return new TextDecoder().decode(_0xbytes);
+    }
+    var _0xbin = '';
+    for (var _0xi = 0; _0xi < _0xbytes.length; _0xi++) _0xbin += String.fromCharCode(_0xbytes[_0xi]);
+    return decodeURIComponent(escape(_0xbin));
+  }
+
+  // Key Derivation with Salt
+  function _0xderiveKey(_0xpwd, _0xsalt) {
+    var _0xkey = new Uint8Array(32);
+    var _0xst = _0xpwd + ':' + _0xsalt;
+    for (var _0xr = 0; _0xr < 1000; _0xr++) {
+      var _0xh = 0x811c9dc5;
+      for (var _0xi = 0; _0xi < _0xst.length; _0xi++) {
+        _0xh ^= _0xst.charCodeAt(_0xi);
+        _0xh = Math.imul(_0xh, 0x01000193);
+      }
+      _0xst = (_0xh >>> 0).toString(16) + _0xpwd;
+      _0xkey[_0xr % 32] ^= (_0xh & 0xff);
+      _0xkey[(_0xr * 7) % 32] ^= ((_0xh >>> 8) & 0xff);
+      _0xkey[(_0xr * 13) % 32] ^= ((_0xh >>> 16) & 0xff);
+      _0xkey[(_0xr * 19) % 32] ^= ((_0xh >>> 24) & 0xff);
+    }
+    return _0xkey;
+  }
+
+  // Authenticated Stream Encryption
+  function _0xencrypt(_0xtxt, _0xcpass) {
+    if (_0xtxt === null || _0xtxt === undefined) return '';
+    var _0xp = _0xcpass || _0x1b2c(0); // 'HavenJJJ'
+    var _0xdata = _0xstrToU8(String(_0xtxt));
+    var _0xsalt = Math.random().toString(36).substring(2, 10);
+    var _0xk = _0xderiveKey(_0xp, _0xsalt);
+    var _0xiv = Math.floor(Math.random() * 0xffffffff);
+    var _0xout = new Uint8Array(_0xdata.length);
+    var _0xst = _0xiv;
+
+    for (var _0xi = 0; _0xi < _0xdata.length; _0xi++) {
+      _0xst = Math.imul(_0xst ^ _0xk[_0xi % 32], 1664525) + 1013904223;
+      var _0xks = ((_0xst >>> 16) & 0xff);
+      _0xout[_0xi] = _0xdata[_0xi] ^ _0xks;
+    }
+
+    var _0xmac = 0;
+    for (var _0xj = 0; _0xj < _0xout.length; _0xj++) {
+      _0xmac = (_0xmac * 31 + _0xout[_0xj]) ^ _0xk[_0xj % 32];
+    }
+
+    var _0xpayload = _0xsalt + '.' + _0xiv.toString(16) + '.' + _0xu8ToB64(_0xout) + '.' + (_0xmac >>> 0).toString(16);
+    return _0x1b2c(1) + _0xu8ToB64(_0xstrToU8(_0xpayload));
+  }
+
+  // Authenticated Stream Decryption
+  function _0xdecrypt(_0xcipher, _0xcpass) {
+    if (!_0xcipher || typeof _0xcipher !== 'string') return _0xcipher;
+    var _0xpre = _0x1b2c(1); // 'ENC:v1:'
+    if (!_0xcipher.startsWith(_0xpre)) return _0xcipher;
+
+    var _0xp = _0xcpass || _0x1b2c(0); // 'HavenJJJ'
+    try {
+      var _0xraw = _0xu8ToStr(_0xb64ToU8(_0xcipher.substring(_0xpre.length)));
+      var _0xparts = _0xraw.split('.');
+      if (_0xparts.length !== 4) return null;
+
+      var _0xsalt = _0xparts[0];
+      var _0xivHex = _0xparts[1];
+      var _0xb64 = _0xparts[2];
+      var _0xmacHex = _0xparts[3];
+
+      var _0xk = _0xderiveKey(_0xp, _0xsalt);
+      var _0xiv = parseInt(_0xivHex, 16);
+      var _0xd = _0xb64ToU8(_0xb64);
+
+      var _0xcmac = 0;
+      for (var _0xi = 0; _0xi < _0xd.length; _0xi++) {
+        _0xcmac = (_0xcmac * 31 + _0xd[_0xi]) ^ _0xk[_0xi % 32];
+      }
+      if ((_0xcmac >>> 0).toString(16) !== _0xmacHex) return null;
+
+      var _0xdec = new Uint8Array(_0xd.length);
+      var _0xst = _0xiv;
+      for (var _0xj = 0; _0xj < _0xd.length; _0xj++) {
+        _0xst = Math.imul(_0xst ^ _0xk[_0xj % 32], 1664525) + 1013904223;
+        var _0xks = ((_0xst >>> 16) & 0xff);
+        _0xdec[_0xj] = _0xd[_0xj] ^ _0xks;
+      }
+      return _0xu8ToStr(_0xdec);
+    } catch(_0xe) {
+      return null;
+    }
+  }
+
+  // Strict Input Sanitization
+  function _0xsanitizeText(_0xin, _0xmax) {
+    if (_0xin === null || _0xin === undefined) return '';
+    var _0xs = String(_0xin);
+    _0xs = _0xs.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '');
+    _0xs = _0xs.replace(new RegExp('<' + 'script[\s\S]*?<\/' + 'script>', 'gi'), '');
+    _0xs = _0xs.replace(new RegExp('<' + 'style[\s\S]*?<\/' + 'style>', 'gi'), '');
+    _0xs = _0xs.replace(new RegExp('<' + 'iframe[\s\S]*?<\/' + 'iframe>', 'gi'), '');
+    _0xs = _0xs.replace(new RegExp('<' + 'embed[\s\S]*?<\/' + 'embed>', 'gi'), '');
+    _0xs = _0xs.replace(new RegExp('<' + 'object[\s\S]*?<\/' + 'object>', 'gi'), '');
+    _0xs = _0xs.replace(/\s+on\w+\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/gi, '');
+    _0xs = _0xs.replace(/javascript\s*:/gi, 'blocked:');
+    _0xs = _0xs.replace(/vbscript\s*:/gi, 'blocked:');
+    _0xs = _0xs.replace(/data\s*:\s*text\/html/gi, 'blocked:');
+    var _0xlimit = typeof _0xmax === 'number' && _0xmax > 0 ? _0xmax : 1024;
+    return _0xs.length > _0xlimit ? _0xs.substring(0, _0xlimit) : _0xs;
+  }
+
+  function _0xsanitizeFilename(_0xfn, _0xmax) {
+    if (!_0xfn || typeof _0xfn !== 'string') return _0x1b2c(18); // 'unnamed_file'
+    var _0xc = _0xfn.trim();
+    _0xc = _0xc.replace(/\.\.[\/\\]/g, '');
+    _0xc = _0xc.replace(/[\/\\]/g, '_');
+    _0xc = _0xc.replace(/[<>:"/\\|?*]/g, '');
+    _0xc = _0xc.replace(/[\x00-\x1F\x7F]/g, '');
+    _0xc = _0xc.replace(/^[.\s]+|[.\s]+$/g, '');
+    if (!_0xc) _0xc = _0x1b2c(18);
+    var _0xlimit = typeof _0xmax === 'number' && _0xmax > 0 ? _0xmax : 128;
+    return _0xc.length > _0xlimit ? _0xc.substring(0, _0xlimit) : _0xc;
+  }
+
+  function _0xsanitizeXML(_0xxml) {
+    if (_0xxml === null || _0xxml === undefined) return '';
+    var _0xs = String(_0xxml);
+    _0xs = _0xs.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '');
+    return _0xs.replace(/&/g, '&amp;')
+               .replace(/</g, '&lt;')
+               .replace(/>/g, '&gt;')
+               .replace(/"/g, '&quot;')
+               .replace(/'/g, '&apos;');
+  }
+
+  function _0xvalidateDrive(_0xd) {
+    if (!_0xd || typeof _0xd !== 'string') return _0x1b2c(19); // 'Drive E: (EASYROMS)'
+    var _0xt = _0xd.trim();
+    if (/^Drive\s+[A-Za-z]:(?:\s*\([A-Za-z0-9_\-\.\s]{1,32}\))?$/i.test(_0xt)) {
+      return _0xt;
+    }
+    var _0xm = _0xt.match(/^([A-Za-z]):?$/);
+    if (_0xm) {
+      return 'Drive ' + _0xm[1].toUpperCase() + ': (EASYROMS)';
+    }
+    return _0xsanitizeText(_0xt, 64);
+  }
+
+  function _0xvalidateNumber(_0xv, _0xmin, _0xmax, _0xdef) {
+    var _0xn = parseFloat(_0xv);
+    if (isNaN(_0xn) || !isFinite(_0xn)) return _0xdef !== undefined ? _0xdef : 0;
+    if (typeof _0xmin === 'number' && _0xn < _0xmin) _0xn = _0xmin;
+    if (typeof _0xmax === 'number' && _0xn > _0xmax) _0xn = _0xmax;
+    return _0xn;
+  }
+
+  function _0xvalidateURL(_0xu) {
+    if (!_0xu || typeof _0xu !== 'string') return null;
+    var _0xt = _0xu.trim();
+    if (!/^https?:\/\//i.test(_0xt)) return null;
+    if (/^https?:\/\/(?:localhost|127\.0\.0\.1|\[::1\]|10\.|192\.168\.|172\.(?:1[6-9]|2[0-9]|3[0-1])\.|169\.254\.)/i.test(_0xt)) {
+      return null;
+    }
+    return _0xt;
+  }
+
+  // Transparent Encrypted Storage Hook
+  function _0xinstallHook() {
+    if (typeof _0xroot.Storage !== 'undefined' && _0xroot.Storage.prototype) {
+      var _0xos = _0xroot.Storage.prototype.setItem;
+      var _0xog = _0xroot.Storage.prototype.getItem;
+
+      _0xroot.Storage.prototype.setItem = function(_0xk, _0xv) {
+        if (typeof _0xk === 'string' && (_0xk.startsWith(_0x1b2c(2)) || _0xk.startsWith(_0x1b2c(3))) && typeof _0xv === 'string') {
+          try {
+            _0xv = _0xencrypt(_0xv, _0x1b2c(0));
+          } catch(_0xe){}
+        }
+        return _0xos.call(this, _0xk, _0xv);
+      };
+
+      _0xroot.Storage.prototype.getItem = function(_0xk) {
+        var _0xv = _0xog.call(this, _0xk);
+        if (typeof _0xk === 'string' && (_0xk.startsWith(_0x1b2c(2)) || _0xk.startsWith(_0x1b2c(3))) && typeof _0xv === 'string' && _0xv.startsWith(_0x1b2c(1))) {
+          try {
+            var _0xd = _0xdecrypt(_0xv, _0x1b2c(0));
+            return _0xd !== null ? _0xd : _0xv;
+          } catch(_0xe) {
+            return _0xv;
+          }
+        }
+        return _0xv;
+      };
+    }
+  }
+
+  _0xinstallHook();
+
+  var _0xapi = {
+    key: _0x1b2c(0),
+    encrypt: function(_0xt, _0xk) { return _0xencrypt(_0xt, _0xk); },
+    decrypt: function(_0xc, _0xk) { return _0xdecrypt(_0xc, _0xk); },
+    sanitizeText: _0xsanitizeText,
+    sanitizeFilename: _0xsanitizeFilename,
+    sanitizeXML: _0xsanitizeXML,
+    validateDrive: _0xvalidateDrive,
+    validateNumber: _0xvalidateNumber,
+    validateURL: _0xvalidateURL
+  };
+
+  _0xroot[_0x1b2c(17)] = _0xapi;
+  _0xroot['sanitizeInput'] = _0xsanitizeText;
+  _0xroot['sanitizeFilename'] = _0xsanitizeFilename;
+  _0xroot['sanitizeXML'] = _0xsanitizeXML;
+  _0xroot['validateDrive'] = _0xvalidateDrive;
+  _0xroot['validateNumber'] = _0xvalidateNumber;
+  _0xroot['validateURL'] = _0xvalidateURL;
+
+})(typeof window !== 'undefined' ? window : (typeof global !== 'undefined' ? global : this));
+const PLATFORM_INFO = {
       "psx":{"name":"Sony PlayStation 1","short":"PS1","icon":"🎮","color":"#003791"},
+      "ps1":{"name":"Sony PlayStation 1","short":"PS1","icon":"🎮","color":"#003791"},
       "psp":{"name":"PlayStation Portable","short":"PSP","icon":"🕹️","color":"#00439c"},
+      "ps2":{"name":"Sony PlayStation 2","short":"PS2","icon":"🎮","color":"#002060"},
       "gba":{"name":"Game Boy Advance","short":"GBA","icon":"👾","color":"#6c5ce7"},
       "gbc":{"name":"Game Boy Color","short":"GBC","icon":"🎮","color":"#a29bfe"},
       "gb":{"name":"Game Boy","short":"GB","icon":"🕹️","color":"#00b894"},
       "nds":{"name":"Nintendo DS","short":"NDS","icon":"📱","color":"#e17055"},
+      "3ds":{"name":"Nintendo 3DS","short":"3DS","icon":"📱","color":"#d32f2f"},
+      "pokemini":{"name":"Pokémon Mini","short":"PKMN","icon":"⚡","color":"#f39c12"},
       "sfc":{"name":"Super Famicom / SNES","short":"SFC","icon":"🎯","color":"#d63031"},
       "snes":{"name":"Super Nintendo (SNES)","short":"SNES","icon":"🎯","color":"#d63031"},
+      "snes9x":{"name":"Super Nintendo (SNES)","short":"SNES","icon":"🎯","color":"#d63031"},
       "nes":{"name":"Nintendo Entertainment System","short":"NES","icon":"🎮","color":"#e74c3c"},
       "famicom":{"name":"Famicom","short":"FC","icon":"🎮","color":"#e74c3c"},
+      "fc":{"name":"Nintendo Famicom","short":"FC","icon":"🎮","color":"#e74c3c"},
+      "n64":{"name":"Nintendo 64","short":"N64","icon":"🌟","color":"#27ae60"},
+      "gc":{"name":"Nintendo GameCube","short":"GC","icon":"🎲","color":"#6c5ce7"},
+      "gamecube":{"name":"Nintendo GameCube","short":"GC","icon":"🎲","color":"#6c5ce7"},
+      "wii":{"name":"Nintendo Wii","short":"Wii","icon":"🎳","color":"#00a8ff"},
       "megadrive":{"name":"Sega Mega Drive / Genesis","short":"MD","icon":"⚡","color":"#2c3e50"},
       "genesis":{"name":"Sega Genesis","short":"GEN","icon":"⚡","color":"#2c3e50"},
-      "n64":{"name":"Nintendo 64","short":"N64","icon":"🌟","color":"#27ae60"},
+      "md":{"name":"Sega Mega Drive","short":"MD","icon":"⚡","color":"#2c3e50"},
+      "gen":{"name":"Sega Genesis","short":"GEN","icon":"⚡","color":"#2c3e50"},
+      "sms":{"name":"Sega Master System","short":"SMS","icon":"🕹️","color":"#34495e"},
+      "mastersystem":{"name":"Sega Master System","short":"SMS","icon":"🕹️","color":"#34495e"},
+      "gamegear":{"name":"Sega Game Gear","short":"GG","icon":"🕹️","color":"#2980b9"},
+      "gg":{"name":"Sega Game Gear","short":"GG","icon":"🕹️","color":"#2980b9"},
       "dreamcast":{"name":"Sega Dreamcast","short":"DC","icon":"🌀","color":"#e67e22"},
+      "dc":{"name":"Sega Dreamcast","short":"DC","icon":"🌀","color":"#e67e22"},
       "saturn":{"name":"Sega Saturn","short":"Saturn","icon":"🪐","color":"#8e44ad"},
+      "segacd":{"name":"Sega CD / Mega CD","short":"SCD","icon":"💿","color":"#2c3e50"},
+      "megacd":{"name":"Sega Mega-CD","short":"MCD","icon":"💿","color":"#2c3e50"},
+      "sega32x":{"name":"Sega 32X","short":"32X","icon":"🍄","color":"#c0392b"},
+      "sg1000":{"name":"Sega SG-1000","short":"SG1000","icon":"🕹️","color":"#2c3e50"},
+      "sg-1000":{"name":"Sega SG-1000","short":"SG1000","icon":"🕹️","color":"#2c3e50"},
+      "neogeo":{"name":"SNK Neo Geo","short":"NeoGeo","icon":"🥊","color":"#c0392b"},
+      "ng":{"name":"SNK Neo Geo","short":"NeoGeo","icon":"🥊","color":"#c0392b"},
+      "ngp":{"name":"Neo Geo Pocket","short":"NGP","icon":"🥊","color":"#e74c3c"},
+      "ngpc":{"name":"Neo Geo Pocket Color","short":"NGPC","icon":"🥊","color":"#e74c3c"},
+      "pcengine":{"name":"PC Engine / TurboGrafx-16","short":"PCE","icon":"🏮","color":"#d35400"},
+      "pce":{"name":"PC Engine","short":"PCE","icon":"🏮","color":"#d35400"},
+      "tg16":{"name":"TurboGrafx-16","short":"TG16","icon":"🏮","color":"#d35400"},
+      "turbografx":{"name":"TurboGrafx-16","short":"TG16","icon":"🏮","color":"#d35400"},
+      "pcecd":{"name":"PC Engine CD","short":"PCE-CD","icon":"💿","color":"#e67e22"},
+      "wonderswan":{"name":"Bandai WonderSwan","short":"WS","icon":"🦢","color":"#00b894"},
+      "ws":{"name":"Bandai WonderSwan","short":"WS","icon":"🦢","color":"#00b894"},
+      "wsc":{"name":"WonderSwan Color","short":"WSC","icon":"🦢","color":"#00cec9"},
       "arcade":{"name":"Arcade Classics","short":"Arcade","icon":"🕹️","color":"#f1c40f"},
       "mame":{"name":"MAME Arcade","short":"MAME","icon":"🕹️","color":"#e74c3c"},
-      "neogeo":{"name":"SNK Neo Geo","short":"NeoGeo","icon":"🥊","color":"#c0392b"},
+      "fbneo":{"name":"FBNeo Arcade","short":"FBNeo","icon":"🕹️","color":"#d63031"},
+      "fba":{"name":"FinalBurn Alpha Arcade","short":"FBA","icon":"🕹️","color":"#d63031"},
+      "cps1":{"name":"Capcom CPS-1","short":"CPS1","icon":"🕹️","color":"#f1c40f"},
+      "cps2":{"name":"Capcom CPS-2","short":"CPS2","icon":"🕹️","color":"#3498db"},
+      "cps3":{"name":"Capcom CPS-3","short":"CPS3","icon":"🕹️","color":"#e74c3c"},
+      "atari2600":{"name":"Atari 2600","short":"A2600","icon":"🕹️","color":"#d35400"},
+      "atari7800":{"name":"Atari 7800","short":"A7800","icon":"🕹️","color":"#c0392b"},
+      "lynx":{"name":"Atari Lynx","short":"Lynx","icon":"🕹️","color":"#27ae60"},
+      "msx":{"name":"MSX Computer","short":"MSX","icon":"💻","color":"#2980b9"},
+      "msx2":{"name":"MSX2 Computer","short":"MSX2","icon":"💻","color":"#3498db"},
+      "c64":{"name":"Commodore 64","short":"C64","icon":"💻","color":"#8e44ad"},
+      "commodore64":{"name":"Commodore 64","short":"C64","icon":"💻","color":"#8e44ad"},
+      "amiga":{"name":"Commodore Amiga","short":"Amiga","icon":"💻","color":"#c0392b"},
+      "zxspectrum":{"name":"Sinclair ZX Spectrum","short":"ZX","icon":"💻","color":"#16a085"},
+      "pico8":{"name":"PICO-8 Fantasy Console","short":"PICO-8","icon":"⭐","color":"#f39c12"},
       "pico-8":{"name":"PICO-8 Fantasy Console","short":"PICO-8","icon":"⭐","color":"#f39c12"},
       "ports":{"name":"PortMaster Ports","short":"Ports","icon":"🚀","color":"#0984e3"},
       "easyrpg":{"name":"EasyRPG","short":"EasyRPG","icon":"⚔️","color":"#00cec9"},
@@ -1644,10 +2069,81 @@
       "alg":{"name":"American Laser Games","short":"ALG","icon":"🎯","color":"#34495e"}
     };
 
+    const LIBRETRO_MAP = {
+      'psx': 'Sony_-_PlayStation',
+      'ps1': 'Sony_-_PlayStation',
+      'psp': 'Sony_-_PlayStation_Portable',
+      'ps2': 'Sony_-_PlayStation_2',
+      'gba': 'Nintendo_-_Game_Boy_Advance',
+      'gbc': 'Nintendo_-_Game_Boy_Color',
+      'gb': 'Nintendo_-_Game_Boy',
+      'nds': 'Nintendo_-_Nintendo_DS',
+      '3ds': 'Nintendo_-_Nintendo_3DS',
+      'pokemini': 'Nintendo_-_Pokemon_Mini',
+      'sfc': 'Nintendo_-_Super_Nintendo_Entertainment_System',
+      'snes': 'Nintendo_-_Super_Nintendo_Entertainment_System',
+      'snes9x': 'Nintendo_-_Super_Nintendo_Entertainment_System',
+      'nes': 'Nintendo_-_Nintendo_Entertainment_System',
+      'famicom': 'Nintendo_-_Nintendo_Entertainment_System',
+      'fc': 'Nintendo_-_Nintendo_Entertainment_System',
+      'n64': 'Nintendo_-_Nintendo_64',
+      'gc': 'Nintendo_-_GameCube',
+      'gamecube': 'Nintendo_-_GameCube',
+      'wii': 'Nintendo_-_Wii',
+      'megadrive': 'Sega_-_Mega_Drive_-_Genesis',
+      'genesis': 'Sega_-_Mega_Drive_-_Genesis',
+      'md': 'Sega_-_Mega_Drive_-_Genesis',
+      'gen': 'Sega_-_Mega_Drive_-_Genesis',
+      'mastersystem': 'Sega_-_Master_System_-_Mark_III',
+      'sms': 'Sega_-_Master_System_-_Mark_III',
+      'gamegear': 'Sega_-_Game_Gear',
+      'gg': 'Sega_-_Game_Gear',
+      'saturn': 'Sega_-_Saturn',
+      'dreamcast': 'Sega_-_Dreamcast',
+      'dc': 'Sega_-_Dreamcast',
+      'segacd': 'Sega_-_Mega-CD_-_Sega_CD',
+      'megacd': 'Sega_-_Mega-CD_-_Sega_CD',
+      'sega32x': 'Sega_-_32X',
+      'sg1000': 'Sega_-_SG-1000',
+      'sg-1000': 'Sega_-_SG-1000',
+      'neogeo': 'SNK_-_Neo_Geo',
+      'ng': 'SNK_-_Neo_Geo',
+      'ngp': 'SNK_-_Neo_Geo_Pocket_Color',
+      'ngpc': 'SNK_-_Neo_Geo_Pocket_Color',
+      'pcengine': 'NEC_-_PC_Engine_-_TurboGrafx_16',
+      'pce': 'NEC_-_PC_Engine_-_TurboGrafx_16',
+      'tg16': 'NEC_-_PC_Engine_-_TurboGrafx_16',
+      'turbografx': 'NEC_-_PC_Engine_-_TurboGrafx_16',
+      'pcecd': 'NEC_-_PC_Engine_CD_-_TurboGrafx-CD',
+      'wonderswan': 'Bandai_-_WonderSwan',
+      'ws': 'Bandai_-_WonderSwan',
+      'wsc': 'Bandai_-_WonderSwan_Color',
+      'arcade': 'MAME',
+      'mame': 'MAME',
+      'fbneo': 'FBNeo_-_Arcade_Games',
+      'fba': 'FBNeo_-_Arcade_Games',
+      'cps1': 'FBNeo_-_Arcade_Games',
+      'cps2': 'FBNeo_-_Arcade_Games',
+      'cps3': 'FBNeo_-_Arcade_Games',
+      'atari2600': 'Atari_-_2600',
+      'atari7800': 'Atari_-_7800',
+      'lynx': 'Atari_-_Lynx',
+      'msx': 'Microsoft_-_MSX',
+      'msx2': 'Microsoft_-_MSX',
+      'c64': 'Commodore_-_64',
+      'commodore64': 'Commodore_-_64',
+      'amiga': 'Commodore_-_Amiga',
+      'zxspectrum': 'Sinclair_-_ZX_Spectrum',
+      'pico8': 'Lexaloffle_-_PICO-8',
+      'pico-8': 'Lexaloffle_-_PICO-8',
+      'scummvm': 'ScummVM'
+    };
+
     let rootDirHandle = null;
     let consolesMap = new Map(); // folderName -> { handle, info, games: [], xmlDoc, xmlHandle, imagesHandle }
     let currentConsoleKey = '';
     let currentFilter = 'all';
+    let scannedDrivesMap = new Map(); // displayName -> { displayName, rootDirHandle, consolesMap, currentConsoleKey, totalGames, storage }
 
     // State for modals
     let addMode = 'single'; // 'single' or 'folder'
@@ -1679,21 +2175,53 @@
       setTimeout(() => toast.classList.remove('show'), 3500);
     }
 
-    function handleDriveChange(val) {
+    function updateScannedDrivesDropdown(activeDriveName) {
       const sel = document.getElementById('statDriveSelect');
-      if (val === 'CUSTOM') {
-        const custom = prompt('กรุณาระบุชื่อหรืออักษรไดรฟ์ เช่น Drive E: หรือ Drive G:', 'Drive E: (EASYROMS)');
-        if (custom && custom.trim()) {
-          const clean = custom.trim();
-          const newOpt = new Option(clean, clean, true, true);
-          sel.add(newOpt, 0);
-          sel.value = clean;
-          val = clean;
-        } else {
-          sel.value = 'Drive E: (EASYROMS)';
-          val = 'Drive E: (EASYROMS)';
+      if (!sel) return;
+      sel.innerHTML = '';
+
+      if (scannedDrivesMap.size === 0) {
+        if (activeDriveName) {
+          sel.add(new Option(activeDriveName, activeDriveName, true, true));
+        }
+        return;
+      }
+
+      for (const [driveName, driveData] of scannedDrivesMap.entries()) {
+        const opt = new Option(driveName, driveName);
+        if (driveName === activeDriveName) {
+          opt.selected = true;
+        }
+        sel.add(opt);
+      }
+      if (activeDriveName) {
+        sel.value = activeDriveName;
+      }
+    }
+
+    function handleDriveChange(val) {
+      if (!val) return;
+      const driveData = scannedDrivesMap.get(val);
+      if (driveData) {
+        rootDirHandle = driveData.rootDirHandle;
+        consolesMap = new Map(driveData.consolesMap);
+        currentConsoleKey = driveData.currentConsoleKey || (consolesMap.size > 0 ? consolesMap.keys().next().value : '');
+
+        if (driveData.storage) {
+          updateStorageDisplay(driveData.storage.totalGB, driveData.storage.usedGB, driveData.storage.freeGB, driveData.storage.pct);
+          localStorage.setItem('retro_storage_total', driveData.storage.totalGB.toFixed(2));
+          localStorage.setItem('retro_storage_free', driveData.storage.freeGB.toFixed(2));
+        }
+
+        recalculateTotalGames();
+        renderFoldersSidebar();
+        if (currentConsoleKey && consolesMap.has(currentConsoleKey)) {
+          selectConsole(currentConsoleKey);
+        } else if (consolesMap.size > 0) {
+          selectConsole(consolesMap.keys().next().value);
         }
       }
+
       localStorage.setItem('retro_manager_drive', val);
       const btn = document.getElementById('btnConnect');
       if (btn && btn.innerHTML.includes('สแกนใหม่')) {
@@ -1767,15 +2295,19 @@
     // ⚡ RECALCULATE TOTAL GAMES & UPDATE BANNER ACROSS APP
     function recalculateTotalGames() {
       let totalAllGames = 0;
+      let activeFoldersCount = 0;
       consolesMap.forEach(c => {
-        totalAllGames += (c.games ? c.games.length : 0);
+        if (c.games && c.games.length > 0) {
+          totalAllGames += c.games.length;
+          activeFoldersCount++;
+        }
       });
 
       const el = document.getElementById('statTotalGames');
       if (el) el.textContent = totalAllGames + ' เกม';
       
       const cLabel = document.getElementById('consoleCountLabel');
-      if (cLabel) cLabel.textContent = consolesMap.size;
+      if (cLabel) cLabel.textContent = activeFoldersCount;
 
       const bannerPathEl = document.getElementById('bannerPath');
       if (bannerPathEl && consolesMap.has(currentConsoleKey)) {
@@ -1788,7 +2320,7 @@
     }
 
     // ⚡ REAL-TIME LIVE DRIVE SYNC VIA COMPANION (Port 38999)
-    async function syncDriveStorageLive(targetDriveLetter) {
+    async function syncDriveStorageLive(targetDriveLetter, silent = false) {
       try {
         const res = await fetch('http://127.0.0.1:38999/', { signal: AbortSignal.timeout(1000) });
         if (res.ok) {
@@ -1811,7 +2343,9 @@
             updateStorageDisplay(match.totalGB, match.usedGB, match.freeGB, match.pct);
             localStorage.setItem('retro_storage_total', match.totalGB.toFixed(2));
             localStorage.setItem('retro_storage_free', match.freeGB.toFixed(2));
-            showToast('ซิงค์ความจุเมม Drive ' + match.letter + ': (' + match.volume + ') สำเร็จ! (ว่าง ' + match.freeGB.toFixed(2) + ' GB)', 'success');
+            if (!silent) {
+              showToast('ซิงค์ความจุเมม Drive ' + match.letter + ': (' + match.volume + ') สำเร็จ! (ว่าง ' + match.freeGB.toFixed(2) + ' GB)', 'success');
+            }
             return match;
           }
         }
@@ -1846,10 +2380,10 @@
       const newFree = prompt('กำหนดพื้นที่ว่างคงเหลือ (GB):\n(เช่น 18.99 หรือ 18.9 ตามที่ Windows แสดงผล)', currentFree);
       if (newFree === null) return;
 
-      const totalNum = parseFloat(newTotal);
-      const freeNum = parseFloat(newFree);
+      const totalNum = validateNumber(newTotal, 0.1, 4096, 0);
+      const freeNum = validateNumber(newFree, 0, totalNum, 0);
 
-      if (!isNaN(totalNum) && !isNaN(freeNum) && totalNum > 0) {
+      if (totalNum > 0) {
         const usedNum = Math.max(0, totalNum - freeNum);
         const pctNum = Math.min(100, Math.max(0, (usedNum / totalNum) * 100));
         
@@ -1862,35 +2396,21 @@
     }
 
     function initStorageDisplay() {
-      // 1. Check URL parameters if launched via run_manager.bat
+      // 1. Check URL parameters if launched via run_manager.bat (Strict Sanitization)
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.has('total') && urlParams.has('free')) {
-        const pTotal = parseFloat(urlParams.get('total'));
-        const pFree = parseFloat(urlParams.get('free'));
-        if (!isNaN(pTotal) && !isNaN(pFree) && pTotal > 0) {
+        const pTotal = validateNumber(urlParams.get('total'), 0.1, 2048, 0);
+        const pFree = validateNumber(urlParams.get('free'), 0, 2048, 0);
+        if (pTotal > 0) {
           localStorage.setItem('retro_storage_total', pTotal.toFixed(2));
           localStorage.setItem('retro_storage_free', pFree.toFixed(2));
         }
       }
 
-      // 2. Drive label: Default to Drive E: (EASYROMS)
-      const savedDrive = urlParams.get('drive') || localStorage.getItem('retro_manager_drive') || 'Drive E: (EASYROMS)';
-      const sel = document.getElementById('statDriveSelect');
-      if (sel) {
-        let found = false;
-        for (let i = 0; i < sel.options.length; i++) {
-          if (sel.options[i].value === savedDrive) {
-            sel.selectedIndex = i;
-            found = true;
-            break;
-          }
-        }
-        if (!found && savedDrive) {
-          const newOpt = new Option(savedDrive, savedDrive, true, true);
-          sel.add(newOpt, 0);
-          sel.value = savedDrive;
-        }
-      }
+      // 2. Drive label: Strict Drive Validation
+      const rawDriveParam = urlParams.get('drive');
+      const savedDrive = validateDrive(rawDriveParam || localStorage.getItem('retro_manager_drive') || 'Drive E: (EASYROMS)');
+      updateScannedDrivesDropdown(savedDrive);
 
       // 3. Drive E: storage baseline (49.34 GB total, 48.23 GB used, 1.12 GB free - 97.7%)
       const defTotal = 49.34;
@@ -1902,12 +2422,13 @@
 
       updateStorageDisplay(savedTotal, used, savedFree, pct);
 
-      // Auto live sync from companion service on start
-      syncDriveStorageLive();
+      // ซ่อนสถานะเมมโมรี่การ์ดไว้แต่แรก จนกว่าจะกดเชื่อมต่อและสแกนโฟลเดอร์ easy rom
+      const driveBox = document.getElementById('driveStatusBox');
+      if (driveBox) driveBox.style.display = 'none';
     }
     window.addEventListener('DOMContentLoaded', initStorageDisplay);
     
-        async function connectMemoryCard() {
+    async function connectMemoryCard() {
       if (!window.showDirectoryPicker) {
         alert('เบราว์เซอร์นี้ไม่รองรับ File System Access API กรุณาเปิดผ่าน Google Chrome หรือ Microsoft Edge ล่าสุด');
         return;
@@ -1916,33 +2437,37 @@
       const btn = document.getElementById('btnConnect');
       try {
         rootDirHandle = await window.showDirectoryPicker({ mode: 'readwrite' });
-        document.getElementById('driveStatusBox').style.display = 'flex';
+        // หมายเหตุ: ไม่แสดง driveStatusBox ทันทีตรงนี้ ให้รอสแกนโฟลเดอร์ easy rom เสร็จก่อน ค่อยแสดงสถานะเมม
         let rawName = rootDirHandle.name ? rootDirHandle.name.trim() : '';
         let displayName = '';
-        const sel = document.getElementById('statDriveSelect');
-        const currentSelected = sel ? sel.value : 'Drive E: (EASYROMS)';
+        const currentSelected = localStorage.getItem('retro_manager_drive') || 'Drive E: (EASYROMS)';
 
         if (rawName && rawName !== '\\' && rawName !== '/' && !rawName.toLowerCase().startsWith('c:')) {
           if (/^[a-zA-Z]:?$/.test(rawName)) {
             displayName = 'Drive ' + rawName.replace(':', '').toUpperCase() + ': (EASYROMS)';
           } else {
-            displayName = 'Drive ' + rawName.toUpperCase();
-          }
-          if (sel) {
-            let found = false;
-            for (let i = 0; i < sel.options.length; i++) {
-              if (sel.options[i].value === displayName) { sel.selectedIndex = i; found = true; break; }
+            // ตรวจสอบตัวอักษรไดรฟ์จาก companion service หากตรงกับชื่อ Volume
+            let foundLetter = '';
+            try {
+              const compRes = await fetch('http://127.0.0.1:38999/', { signal: AbortSignal.timeout(500) });
+              if (compRes.ok) {
+                const compList = await compRes.json();
+                const m = compList.find(d => d.volume && d.volume.toUpperCase() === rawName.toUpperCase());
+                if (m) foundLetter = m.letter;
+              }
+            } catch(e){}
+
+            if (foundLetter) {
+              displayName = 'Drive ' + foundLetter + ': (' + rawName.toUpperCase() + ')';
+            } else {
+              displayName = 'Drive ' + rawName.toUpperCase();
             }
-            if (!found) {
-              const newOpt = new Option(displayName, displayName, true, true);
-              sel.add(newOpt, 0);
-              sel.value = displayName;
-            }
-            localStorage.setItem('retro_manager_drive', displayName);
           }
         } else {
           displayName = currentSelected;
         }
+
+        localStorage.setItem('retro_manager_drive', displayName);
 
         if (btn) {
           btn.disabled = true;
@@ -1969,8 +2494,8 @@
       consolesMap.clear();
       renderFoldersSidebar();
 
-      // Instantly sync real-time storage from Windows OS via companion service
-      let liveStorage = await syncDriveStorageLive(displayName || (root ? root.name : ''));
+      // Instantly sync real-time storage from Windows OS via companion service (silent mode)
+      let liveStorage = await syncDriveStorageLive(displayName || (root ? root.name : ''), true);
 
       const SYSTEM_IGNORED = new Set([
         'system volume information', '$recycle.bin', 'retrodashboardmaker', 'output',
@@ -1986,11 +2511,36 @@
         isSingleConsole = true;
       } catch(e){}
 
+      // Priority sort: popular consoles appear and render first!
+      const priorityOrder = ['psx', 'ps1', 'gba', 'nds', 'sfc', 'snes', 'nes', 'fc', 'famicom', 'megadrive', 'genesis', 'md', 'psp', 'ps2', 'n64', 'neogeo', 'ng', 'arcade', 'mame', 'fbneo', 'fba', 'gbc', 'gb', 'dreamcast', 'dc', 'saturn', 'gamegear', 'gg', 'mastersystem', 'sms', 'cps1', 'cps2', 'cps3', 'pcengine', 'pce', 'tg16', 'wonderswan', 'ws', 'wsc', '3ds', 'gc', 'gamecube', 'wii', 'segacd', 'megacd', 'sega32x', 'sg1000', 'sg-1000', 'atari2600', 'atari7800', 'lynx', 'msx', 'c64', 'amiga', 'pico8', 'pico-8', 'scummvm', 'ports'];
+
+      // ตรวจสอบโฟลเดอร์: หากผู้ใช้เลือกไดรฟ์หรือโฟลเดอร์ที่มีโฟลเดอร์ easy rom / easyroms / roms ให้เข้าไปสแกนโฟลเดอร์นั้น
+      let effectiveRoot = root;
+      if (!isSingleConsole) {
+        let hasDirectConsoles = false;
+        let easyRomSubDir = null;
+        for await (const entry of root.values()) {
+          if (entry.kind === 'directory') {
+            const raw = entry.name.toLowerCase().trim();
+            const norm = raw.replace(/[\s_-]+/g, '');
+            if (PLATFORM_INFO[raw] || priorityOrder.includes(raw)) {
+              hasDirectConsoles = true;
+            }
+            if (norm === 'easyrom' || norm === 'easyroms' || norm === 'roms' || norm === 'rom') {
+              easyRomSubDir = entry;
+            }
+          }
+        }
+        if (!hasDirectConsoles && easyRomSubDir) {
+          effectiveRoot = easyRomSubDir;
+        }
+      }
+
       let consoleEntries = [];
       if (isSingleConsole) {
-        consoleEntries.push(root);
+        consoleEntries.push(effectiveRoot);
       } else {
-        for await (const entry of root.values()) {
+        for await (const entry of effectiveRoot.values()) {
           if (entry.kind === 'directory') {
             const low = entry.name.toLowerCase();
             if (!SYSTEM_IGNORED.has(low) && !low.startsWith('.')) {
@@ -2000,8 +2550,6 @@
         }
       }
 
-      // Priority sort: popular consoles appear and render first!
-      const priorityOrder = ['psx', 'gba', 'nds', 'sfc', 'snes', 'nes', 'famicom', 'megadrive', 'genesis', 'psp', 'n64', 'neogeo', 'arcade', 'mame', 'gbc', 'gb', 'dreamcast', 'gamegear', 'cps1', 'cps2', 'cps3', 'pcengine', 'sega32x', 'sg-1000', 'atari2600'];
       consoleEntries.sort((a, b) => {
         const idxA = priorityOrder.indexOf(a.name.toLowerCase());
         const idxB = priorityOrder.indexOf(b.name.toLowerCase());
@@ -2017,7 +2565,7 @@
 
       // Scan and sum sizes of loose root files and system folders for real-time drive accuracy
       if (!isSingleConsole) {
-        for await (const entry of root.values()) {
+        for await (const entry of effectiveRoot.values()) {
           try {
             if (entry.kind === 'file') {
               const f = await entry.getFile();
@@ -2251,7 +2799,7 @@
             }
           }
 
-          if (consoleObj.games.length > 0 || priorityOrder.includes(folderName)) {
+          if (consoleObj.games.length > 0) {
             consoleObj.games.sort((a, b) => a.name.localeCompare(b.name));
             consolesMap.set(entry.name, consoleObj);
             totalAllGames += consoleObj.games.length;
@@ -2260,7 +2808,7 @@
             renderFoldersSidebar();
             recalculateTotalGames();
 
-            if (!firstConsoleSelected && consoleObj.games.length > 0) {
+            if (!firstConsoleSelected) {
               firstConsoleSelected = true;
               selectConsole(entry.name);
             }
@@ -2276,16 +2824,21 @@
 
       // Real-Time Storage Recalculation
       if (!liveStorage) {
-        liveStorage = await syncDriveStorageLive(displayName || (root ? root.name : ''));
+        liveStorage = await syncDriveStorageLive(displayName || (root ? root.name : ''), true);
       }
       if (!liveStorage && totalScannedBytes > 0 && !isSingleConsole) {
         const scannedUsedGB = totalScannedBytes / (1024 * 1024 * 1024);
-        let totalGB = parseFloat(localStorage.getItem('retro_storage_total')) || 49.34;
+        let totalGB = parseFloat(localStorage.getItem('retro_storage_total'));
         
-        if (scannedUsedGB > 50 && totalGB <= 49.34) {
-          totalGB = 108.37;
-        } else if (scannedUsedGB <= 49.34 && totalGB > 108.37) {
-          totalGB = 49.34;
+        // Auto-calibrate realistic SD card capacity matching scanned storage
+        if (!totalGB || isNaN(totalGB) || totalGB <= scannedUsedGB) {
+          if (scannedUsedGB <= 14.8) totalGB = 14.80;
+          else if (scannedUsedGB <= 29.7) totalGB = 29.70;
+          else if (scannedUsedGB <= 49.34) totalGB = 49.34;
+          else if (scannedUsedGB <= 108.37) totalGB = 108.37;
+          else if (scannedUsedGB <= 238.4) totalGB = 238.40;
+          else if (scannedUsedGB <= 476.8) totalGB = 476.80;
+          else totalGB = 953.00;
         }
 
         const freeGB = Math.max(0, totalGB - scannedUsedGB);
@@ -2296,19 +2849,44 @@
         localStorage.setItem('retro_storage_free', freeGB.toFixed(2));
       }
 
+      // ⚡ บันทึกไดรฟ์ที่สแกนเจอเข้าระบบ และอัปเดต dropdown ให้เลือกได้เฉพาะไดรฟ์ที่สแกนเจอ
+      scannedDrivesMap.set(displayName, {
+        displayName: displayName,
+        rootDirHandle: root,
+        consolesMap: new Map(consolesMap),
+        currentConsoleKey: currentConsoleKey,
+        totalGames: totalAllGames,
+        storage: {
+          totalGB: parseFloat(localStorage.getItem('retro_storage_total')) || 108.37,
+          freeGB: parseFloat(localStorage.getItem('retro_storage_free')) || 0,
+          usedGB: parseFloat(document.getElementById('statStorageUsed')?.textContent) || 0,
+          pct: parseFloat(document.getElementById('statStoragePct')?.textContent) || 0
+        }
+      });
+      localStorage.setItem('retro_manager_drive', displayName);
+
+      // อัปเดต dropdown ให้แสดงเฉพาะไดรฟ์ที่สแกนเจอเท่านั้น
+      updateScannedDrivesDropdown(displayName);
+
+      // ⚡ แสดงสถานะเมมโมรี่การ์ดหลังสแกนโฟลเดอร์ easy rom เรียบร้อยแล้ว
+      const driveBox = document.getElementById('driveStatusBox');
+      if (driveBox) driveBox.style.display = 'flex';
+
       if (!currentConsoleKey && consolesMap.size > 0) {
         const firstKey = consolesMap.keys().next().value;
         selectConsole(firstKey);
       }
 
-      showToast('เชื่อมต่อสำเร็จ! พบ ' + totalAllGames + ' เกม ใน ' + consolesMap.size + ' คอนโซล', 'success');
+      showToast('เชื่อมต่อสำเร็จ! พบ ' + totalAllGames + ' เกม ใน ' + consolesMap.size + ' โฟลเดอร์ที่มีเกม', 'success');
     }
 
     function renderFoldersSidebar() {
       const listEl = document.getElementById('foldersList');
       listEl.innerHTML = '';
 
-      const sorted = Array.from(consolesMap.values()).sort((a, b) => b.games.length - a.games.length || a.folder.localeCompare(b.folder));
+      const sorted = Array.from(consolesMap.values())
+        .filter(c => c.games && c.games.length > 0)
+        .sort((a, b) => b.games.length - a.games.length || a.folder.localeCompare(b.folder));
 
       sorted.forEach(c => {
         const btn = document.createElement('button');
@@ -2652,15 +3230,16 @@
             coverBlobUrl = URL.createObjectURL(selectedCoverFile);
           }
 
-          // Update gamelist.xml
-          const title = document.getElementById('addGameTitle').value.trim() || selectedRomFile.name;
+          // Update gamelist.xml (Strict Sanitization)
+          const cleanRomFileName = sanitizeFilename(selectedRomFile.name);
+          const title = sanitizeInput(document.getElementById('addGameTitle').value.trim() || selectedRomFile.name, 128);
           await updateGameInXml(c, {
-            pathRel: './' + selectedRomFile.name,
+            pathRel: './' + cleanRomFileName,
             name: title,
             image: imageRelPath,
-            desc: document.getElementById('addGameDesc').value.trim(),
-            developer: document.getElementById('addGameDev').value.trim(),
-            genre: document.getElementById('addGameGenre').value.trim(),
+            desc: sanitizeInput(document.getElementById('addGameDesc').value.trim(), 1024),
+            developer: sanitizeInput(document.getElementById('addGameDev').value.trim(), 64),
+            genre: sanitizeInput(document.getElementById('addGameGenre').value.trim(), 64),
             favorite: document.getElementById('addGameFavorite').checked
           });
 
@@ -2823,9 +3402,85 @@
     }
 
     // ==========================================
-    // 🖼️ EDIT COVER IMAGE FEATURE
+    // 🖼️ EDIT COVER IMAGE FEATURE (ONLINE SEARCH + LOCAL + CLIPBOARD + BATCH AUTO-SCAN)
     // ==========================================
-    function openEditCoverModal(encodedFileName) {
+    function escapeHtml(text) {
+      if (!text) return '';
+      return String(text)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function cleanGameTitleForSearch(name) {
+      if (!name) return '';
+      return name
+        .replace(/^\d+\s*[-_.]\s*/, '') // strip release numbering like "1840 - "
+        .replace(/\s*[-_]\s*TH\b.*$/i, '') // strip Thai mod suffix
+        .replace(/\[(TH|Thai|แปลไทย|ภาษาไทย|TRSI|!|b\d+|h\d+|t\d+|a\d+)\]/gi, '') // strip tags
+        .replace(/\((USA|Japan|Europe|En,Ja|En,Fr,De,Es,It|World|Beta|Proto|Rev\s*\d+|v\d+[._\d]*|TRSI|E|J|U|Track\s*\d+|Disc\s*\d+|CD\s*\d+)\)/gi, '') // strip region/version
+        .replace(/[_\.]+/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
+
+    // Generate intelligent similar/nearby query candidates
+    function getSimilarTitleCandidates(name) {
+      if (!name) return [];
+      const clean = cleanGameTitleForSearch(name);
+      const candidates = [];
+      const seen = new Set();
+
+      function add(cand) {
+        if (!cand) return;
+        const c = cand.trim();
+        if (c.length >= 2 && !seen.has(c.toLowerCase())) {
+          seen.add(c.toLowerCase());
+          candidates.push(c);
+        }
+      }
+
+      // 1. Full clean title
+      add(clean);
+
+      // 2. Subtitle removed (part before ' - ', ' : ', ' _ ')
+      const parts = clean.split(/\s*[-:]\s*/);
+      if (parts.length > 1 && parts[0].trim().length >= 3) {
+        add(parts[0].trim());
+      }
+
+      // 3. Title without punctuation symbols (!, ?, :, ', ", ~)
+      const noPunct = clean.replace(/[!?:'"~]/g, '').replace(/\s+/g, ' ').trim();
+      if (noPunct !== clean) {
+        add(noPunct);
+      }
+
+      // 4. Short title (first 3 words if clean is long)
+      const words = clean.split(' ');
+      if (words.length > 3) {
+        add(words.slice(0, 3).join(' '));
+      }
+
+      // 5. Short title (first 2 words if 4 words)
+      if (words.length > 4) {
+        add(words.slice(0, 2).join(' '));
+      }
+
+      return candidates;
+    }
+
+    async function checkCompanionServiceOnline() {
+      try {
+        const res = await fetch('http://127.0.0.1:38999/ping', { signal: AbortSignal.timeout(1200) });
+        return res.ok;
+      } catch(e) {
+        return false;
+      }
+    }
+
+    async function openEditCoverModal(encodedFileName) {
       const fileName = decodeURIComponent(encodedFileName);
       const c = consolesMap.get(currentConsoleKey);
       if (!c) return;
@@ -2843,10 +3498,48 @@
       }
 
       selectedCoverFile = null;
-      document.getElementById('newCoverText').textContent = 'คลิกเพื่อเลือกภาพใหม่จากคอมพิวเตอร์';
+      document.getElementById('newCoverText').textContent = 'เลือกภาพจากคอมพิวเตอร์';
       document.getElementById('btnSaveNewCover').disabled = true;
 
+      const badge = document.getElementById('coverSourceBadge');
+      if (badge) {
+        badge.textContent = 'ภาพปัจจุบัน';
+        badge.style.color = '#94a3b8';
+      }
+
+      const cleanTitle = cleanGameTitleForSearch(game.name);
+      const searchInput = document.getElementById('onlineCoverSearchInput');
+      if (searchInput) searchInput.value = cleanTitle;
+
+      // Populate Similar Names Suggestion Chips
+      const chipsContainer = document.getElementById('onlineCoverSimilarChips');
+      const chipsWrapper = document.getElementById('onlineCoverSimilarChipsContainer');
+      if (chipsContainer && chipsWrapper) {
+        const cands = getSimilarTitleCandidates(game.name);
+        if (cands.length > 1) {
+          chipsContainer.innerHTML = '';
+          cands.forEach(cand => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'btn btn-secondary';
+            btn.style.cssText = 'font-size:11px; padding:3px 8px; border-radius:6px; background:#1e293b; border:1px solid rgba(255,255,255,0.1); color:#cbd5e1; cursor:pointer;';
+            btn.textContent = '🔍 ' + cand;
+            btn.onclick = () => {
+              if (searchInput) searchInput.value = cand;
+              searchOnlineCovers(cand);
+            };
+            chipsContainer.appendChild(btn);
+          });
+          chipsWrapper.style.display = 'block';
+        } else {
+          chipsWrapper.style.display = 'none';
+        }
+      }
+
       document.getElementById('editCoverModal').classList.add('open');
+
+      // Auto-search online covers immediately!
+      searchOnlineCovers(cleanTitle);
     }
 
     function closeEditCoverModal(e) {
@@ -2858,7 +3551,328 @@
       selectedCoverFile = files[0];
       document.getElementById('newCoverText').innerHTML = '✅ เลือกไฟล์: <b>' + selectedCoverFile.name + '</b>';
       document.getElementById('editCoverCurrentImg').src = URL.createObjectURL(selectedCoverFile);
+      const badge = document.getElementById('coverSourceBadge');
+      if (badge) {
+        badge.textContent = '📁 ภาพจากคอมพิวเตอร์';
+        badge.style.color = '#10b981';
+      }
       document.getElementById('btnSaveNewCover').disabled = false;
+    }
+
+    async function searchOnlineCovers(customQuery) {
+      if (!targetGameForCover) return;
+      const c = consolesMap.get(currentConsoleKey);
+      const consoleFolder = c ? c.folder.toLowerCase() : '';
+      const consoleInfo = (c && c.info) ? c.info.name : '';
+      
+      const qInput = document.getElementById('onlineCoverSearchInput');
+      const rawQuery = (customQuery !== undefined ? customQuery : (qInput ? qInput.value : targetGameForCover.name)).trim();
+      const query = sanitizeInput(rawQuery, 100);
+      const cleanTitle = cleanGameTitleForSearch(query);
+
+      const statusEl = document.getElementById('onlineCoverStatusText');
+      const countEl = document.getElementById('onlineCoverCount');
+      const resultsContainer = document.getElementById('onlineCoverResults');
+      const searchIcon = document.getElementById('btnOnlineSearchIcon');
+
+      if (!query) {
+        if (statusEl) statusEl.textContent = 'กรุณาระบุชื่อเกมที่ต้องการค้นหา';
+        return;
+      }
+
+      if (searchIcon) searchIcon.textContent = '⏳';
+      if (statusEl) statusEl.textContent = 'กำลังค้นหาและตรวจสอบปกออนไลน์สำหรับ "' + cleanTitle + '"...';
+      if (countEl) countEl.textContent = '';
+      if (resultsContainer) {
+        resultsContainer.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:35px 10px; color:#38bdf8; font-size:13px;">' +
+          '<div style="font-size:24px; margin-bottom:8px;">🔄</div>' +
+          'กำลังค้นหาภาพปกออนไลน์จากฐานข้อมูลและเว็บ...</div>';
+      }
+
+      const results = [];
+      const seenUrls = new Set();
+
+      function addResult(url, title, source) {
+        if (!url || seenUrls.has(url)) return;
+        seenUrls.add(url);
+        results.push({ url, title: title || cleanTitle, source: source || 'Web' });
+      }
+
+      // Check Companion service status
+      let companionOnline = false;
+      const compBadge = document.getElementById('companionServiceBadge');
+
+      // 1. Companion Service Live Search (Port 38999)
+      try {
+        const compUrl = 'http://127.0.0.1:38999/search_cover?q=' + encodeURIComponent(cleanTitle) + '&console=' + encodeURIComponent(consoleFolder || consoleInfo);
+        const res = await fetch(compUrl, { signal: AbortSignal.timeout(6000) });
+        if (res.ok) {
+          companionOnline = true;
+          const list = await res.json();
+          if (Array.isArray(list)) {
+            list.forEach(item => {
+              addResult(item.url, item.title, 'Web');
+            });
+          }
+        }
+      } catch(e) {}
+
+      if (compBadge) {
+        if (companionOnline) {
+          compBadge.innerHTML = '<span>🟢</span> <span>Live Cover Engine ออนไลน์ (Bing + Libretro พร้อมใช้งาน)</span>';
+          compBadge.style.color = '#10b981';
+        } else {
+          compBadge.innerHTML = '<span>🟡</span> <span>Live Cover Engine ออฟไลน์ (ดับเบิลคลิก run_manager.bat เพื่อเปิดโหมดค้นหาภาพสด)</span>';
+          compBadge.style.color = '#f59e0b';
+        }
+      }
+
+      // 2. Libretro Smart Boxart Candidates (Direct High Quality Boxarts)
+      const libretroRepo = LIBRETRO_MAP[consoleFolder] || LIBRETRO_MAP[consoleFolder.replace(/[\s_-]+/g, '')];
+      if (libretroRepo) {
+        const simCands = getSimilarTitleCandidates(cleanTitle);
+        simCands.forEach(cand => {
+          const properCased = cand.replace(/\b(No|To|Wo|Wa|Ga|Ni|De|Ka|Mo|The|Of|In|On|At|For|And|A|An)\b/g, m => m.toLowerCase());
+          const nameVars = [cand];
+          if (properCased !== cand) nameVars.push(properCased);
+          
+          const suffixes = [
+            ' (Japan).png',
+            ' (Japan)__.png',
+            ' (USA).png',
+            ' (Europe).png',
+            ' (World).png',
+            ' (En,Ja).png',
+            ' (USA, Europe).png',
+            '.png'
+          ];
+          nameVars.forEach(nv => {
+            suffixes.forEach(s => {
+              const fullFileName = nv + s;
+              const u = 'https://raw.githubusercontent.com/libretro-thumbnails/' + libretroRepo + '/master/Named_Boxarts/' + encodeURIComponent(fullFileName);
+              addResult(u, nv, 'Libretro');
+            });
+          });
+        });
+      }
+
+      if (searchIcon) searchIcon.textContent = '🔍';
+
+      // Progressive image loading and verification
+      renderVerifiedCoverCards(results, cleanTitle);
+    }
+
+    function renderVerifiedCoverCards(results, cleanTitle) {
+      const statusEl = document.getElementById('onlineCoverStatusText');
+      const countEl = document.getElementById('onlineCoverCount');
+      const resultsContainer = document.getElementById('onlineCoverResults');
+
+      if (!resultsContainer) return;
+      resultsContainer.innerHTML = '';
+
+      if (results.length === 0) {
+        renderNoCoverFound(cleanTitle);
+        return;
+      }
+
+      if (statusEl) statusEl.textContent = 'กำลังตรวจสอบและแสดงภาพปก...';
+      if (countEl) countEl.textContent = '';
+
+      let verifiedCount = 0;
+      let processedCount = 0;
+      const totalCandidates = results.length;
+
+      results.forEach((r) => {
+        const card = document.createElement('div');
+        card.className = 'online-cover-card';
+        card.style.cssText = 'background:#0f172a; border:2px solid rgba(255,255,255,0.08); border-radius:10px; padding:6px; cursor:pointer; display:none; flex-direction:column; align-items:center; transition:all 0.2s ease; position:relative; overflow:hidden;';
+        card.title = r.title;
+        
+        const img = document.createElement('img');
+        img.referrerPolicy = 'no-referrer'; // Critical to bypass hotlinking protection!
+        img.loading = 'lazy';
+        img.style.cssText = 'width:100%; height:130px; object-fit:contain; border-radius:6px; background:#080c14;';
+        
+        const titleDiv = document.createElement('div');
+        titleDiv.style.cssText = 'font-size:10px; color:#94a3b8; width:100%; text-align:center; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; margin-top:4px;';
+        titleDiv.textContent = (r.source === 'Libretro' ? '⭐ ' : '') + r.title;
+
+        card.appendChild(img);
+        card.appendChild(titleDiv);
+
+        card.onmouseenter = () => { if (!card.classList.contains('selected')) card.style.borderColor = 'rgba(56, 189, 248, 0.6)'; };
+        card.onmouseleave = () => { if (!card.classList.contains('selected')) card.style.borderColor = 'rgba(255,255,255,0.08)'; };
+        card.onclick = () => selectOnlineCoverCandidate(r.url, card);
+
+        img.onload = () => {
+          processedCount++;
+          verifiedCount++;
+          card.style.display = 'flex';
+          if (statusEl) statusEl.textContent = 'พบ ' + verifiedCount + ' ภาพปกออนไลน์ (คลิกที่รูปเพื่อเลือก)';
+          if (countEl) countEl.textContent = verifiedCount + ' ภาพ';
+        };
+
+        img.onerror = () => {
+          processedCount++;
+          card.remove();
+          if (processedCount >= totalCandidates && verifiedCount === 0) {
+            renderNoCoverFound(cleanTitle);
+          }
+        };
+
+        img.src = r.url;
+        resultsContainer.appendChild(card);
+      });
+    }
+
+    function renderNoCoverFound(cleanTitle) {
+      const statusEl = document.getElementById('onlineCoverStatusText');
+      const countEl = document.getElementById('onlineCoverCount');
+      const resultsContainer = document.getElementById('onlineCoverResults');
+
+      if (statusEl) statusEl.textContent = 'ไม่พบภาพปกออนไลน์สำหรับ "' + cleanTitle + '"';
+      if (countEl) countEl.textContent = '0 ภาพ';
+      if (resultsContainer) {
+        const cands = getSimilarTitleCandidates(cleanTitle);
+        let chipsHtml = '';
+        if (cands.length > 1) {
+          chipsHtml = '<div style="margin-top:12px; display:flex; flex-wrap:wrap; justify-content:center; gap:6px;">' +
+            cands.map(c => '<button type="button" class="btn btn-secondary" style="font-size:11px; padding:5px 10px; border-radius:6px; background:#1e293b; color:#38bdf8; border:1px solid rgba(56,189,248,0.3); cursor:pointer;" onclick="searchOnlineCovers(\'' + c.replace(/'/g, "\\'") + '\')">🔍 ' + escapeHtml(c) + '</button>').join('') +
+            '</div>';
+        }
+        resultsContainer.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:25px 12px; color:#94a3b8; font-size:13px;">' +
+          '<div style="font-size:26px; margin-bottom:8px;">❌</div>' +
+          '<div style="font-weight:700; color:#e2e8f0; font-size:14px;">ไม่พบภาพปกสำหรับชื่อนี้</div>' +
+          '<div style="margin-top:6px; font-size:12px; color:#64748b;">ลองคลิกชื่อที่ใกล้เคียงด้านล่าง หรือใช้ปุ่ม <b>"ค้นหาใน Google Images ↗"</b> ด้านซ้าย<br>แล้วคลิกขวาคัดลอกรูปภาพมากด <b>Ctrl+V</b> ได้ทันที</div>' +
+          chipsHtml +
+          '</div>';
+      }
+    }
+
+    async function selectOnlineCoverCandidate(imageUrl, cardEl) {
+      document.querySelectorAll('.online-cover-card').forEach(c => {
+        c.classList.remove('selected');
+        c.style.borderColor = 'rgba(255,255,255,0.08)';
+        c.style.background = '#0f172a';
+      });
+      if (cardEl) {
+        cardEl.classList.add('selected');
+        cardEl.style.borderColor = 'var(--accent-cyan)';
+        cardEl.style.background = 'rgba(56, 189, 248, 0.12)';
+      }
+
+      const currentImg = document.getElementById('editCoverCurrentImg');
+      const badge = document.getElementById('coverSourceBadge');
+      const btnSave = document.getElementById('btnSaveNewCover');
+      
+      if (currentImg) currentImg.src = imageUrl;
+      if (badge) {
+        badge.textContent = '⏳ กำลังดึงรูปภาพ...';
+        badge.style.color = '#38bdf8';
+      }
+
+      try {
+        let blob = null;
+
+        // 1. Try companion fetch (Port 38999 - zero CORS/referrer restriction)
+        try {
+          const compFetchUrl = 'http://127.0.0.1:38999/fetch_image?url=' + encodeURIComponent(imageUrl);
+          const r = await fetch(compFetchUrl, { signal: AbortSignal.timeout(6000) });
+          if (r.ok) blob = await r.blob();
+        } catch(e) {}
+
+        // 2. Try images.weserv.nl proxy (Cloudflare CORS-enabled CDN)
+        if (!blob) {
+          try {
+            const weservUrl = 'https://images.weserv.nl/?url=' + encodeURIComponent(imageUrl);
+            const rWeserv = await fetch(weservUrl, { signal: AbortSignal.timeout(6000) });
+            if (rWeserv.ok) blob = await rWeserv.blob();
+          } catch(e) {}
+        }
+
+        // 3. Direct fetch fallback
+        if (!blob) {
+          try {
+            const r2 = await fetch(imageUrl, { mode: 'cors' });
+            if (r2.ok) blob = await r2.blob();
+          } catch(e) {}
+        }
+
+        // 4. Fallback to Image -> Canvas -> Blob
+        if (!blob) {
+          blob = await new Promise((resolve) => {
+            const img = new Image();
+            img.crossOrigin = 'Anonymous';
+            img.onload = () => {
+              try {
+                const canvas = document.createElement('canvas');
+                canvas.width = img.naturalWidth || img.width;
+                canvas.height = img.naturalHeight || img.height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0);
+                canvas.toBlob(b => resolve(b), 'image/png');
+              } catch(e) { resolve(null); }
+            };
+            img.onerror = () => resolve(null);
+            img.src = imageUrl;
+          });
+        }
+
+        if (blob) {
+          const ext = blob.type === 'image/jpeg' ? '.jpg' : '.png';
+          const fileObj = new File([blob], 'online_cover' + ext, { type: blob.type || 'image/png' });
+          selectedCoverFile = fileObj;
+          if (currentImg) currentImg.src = URL.createObjectURL(fileObj);
+          if (badge) {
+            badge.textContent = '✅ เลือกปกจากออนไลน์แล้ว';
+            badge.style.color = '#10b981';
+          }
+          if (btnSave) btnSave.disabled = false;
+        } else {
+          if (badge) {
+            badge.textContent = '⚠️ ไม่สามารถดาวน์โหลดรูปนี้ได้';
+            badge.style.color = '#ef4444';
+          }
+          showToast('ไม่สามารถดึงรูปนี้ได้เนื่องจากการป้องกันของเว็บปลายทาง กรุณาเลือกรูปอื่นหรือใช้ปุ่ม Google Images แล้ววางภาพ', 'warning');
+        }
+      } catch(err) {
+        console.error('Error selecting online cover', err);
+      }
+    }
+
+    async function pasteCoverFromClipboard() {
+      try {
+        const items = await navigator.clipboard.read();
+        for (const item of items) {
+          for (const type of item.types) {
+            if (type.startsWith('image/')) {
+              const blob = await item.getType(type);
+              const ext = type === 'image/jpeg' ? '.jpg' : '.png';
+              const fileObj = new File([blob], 'clipboard_cover' + ext, { type: type });
+              handleNewCoverSelect([fileObj]);
+              const badge = document.getElementById('coverSourceBadge');
+              if (badge) {
+                badge.textContent = '✅ รูปจากคลิปบอร์ด';
+                badge.style.color = '#10b981';
+              }
+              showToast('วางภาพจากคลิปบอร์ดสำเร็จ! กดบันทึกรูปปกได้เลย', 'success');
+              return;
+            }
+          }
+        }
+        showToast('ไม่พบไฟล์รูปภาพในคลิปบอร์ด กรุณากด Copy Image จากเว็บก่อน', 'warning');
+      } catch(e) {
+        showToast('กรุณากดแป้น Ctrl + V บนคีย์บอร์ดเพื่อวางภาพโดยตรง', 'info');
+      }
+    }
+
+    function openGoogleSearchTab() {
+      if (!targetGameForCover) return;
+      const c = consolesMap.get(currentConsoleKey);
+      const consoleName = (c && c.info) ? c.info.name : '';
+      const cleanTitle = cleanGameTitleForSearch(targetGameForCover.name);
+      const q = encodeURIComponent(cleanTitle + ' ' + consoleName + ' cover box art');
+      window.open('https://www.google.com/search?tbm=isch&q=' + q, '_blank');
     }
 
     async function submitNewCover() {
@@ -2899,6 +3913,7 @@
         targetGameForCover.imageUrl = URL.createObjectURL(selectedCoverFile);
         targetGameForCover.imageFile = selectedCoverFile;
         targetGameForCover.coverFileName = imgFileName;
+        targetGameForCover.coverHandle = imgHandle;
         targetGameForCover.b64Cover = '';
         closeEditCoverModal();
         renderGamesList();
@@ -2911,6 +3926,199 @@
         btn.innerHTML = '<span>💾</span> บันทึกรูปปกใหม่ลงเมม';
         btn.disabled = false;
       }
+    }
+
+    // ==========================================
+    // ⚡ AUTO-SCAN MISSING COVERS (BATCH COVER FINDER FOR CONSOLE)
+    // ==========================================
+    let autoScanCancelled = false;
+
+    async function autoFetchCoverForGame(game, consoleObj) {
+      const consoleFolder = consoleObj.folder.toLowerCase();
+      const consoleInfo = consoleObj.info ? consoleObj.info.name : '';
+      const cands = getSimilarTitleCandidates(game.name);
+      
+      let candidateUrls = [];
+      const seen = new Set();
+
+      function addCandUrl(u) {
+        if (!u || seen.has(u)) return;
+        seen.add(u);
+        candidateUrls.push(u);
+      }
+
+      // 1. Try companion search with clean title
+      const cleanTitle = cands[0] || game.name;
+      try {
+        const compUrl = 'http://127.0.0.1:38999/search_cover?q=' + encodeURIComponent(cleanTitle) + '&console=' + encodeURIComponent(consoleFolder || consoleInfo);
+        const res = await fetch(compUrl, { signal: AbortSignal.timeout(5000) });
+        if (res.ok) {
+          const list = await res.json();
+          if (Array.isArray(list)) {
+            list.forEach(item => addCandUrl(item.url));
+          }
+        }
+      } catch(e) {}
+
+      // 2. Libretro thumbnails for all candidate titles
+      const libretroRepo = LIBRETRO_MAP[consoleFolder] || LIBRETRO_MAP[consoleFolder.replace(/[\s_-]+/g, '')];
+      if (libretroRepo) {
+        cands.forEach(cand => {
+          const properCased = cand.replace(/\b(No|To|Wo|Wa|Ga|Ni|De|Ka|Mo|The|Of|In|On|At|For|And|A|An)\b/g, m => m.toLowerCase());
+          const nameVars = [cand];
+          if (properCased !== cand) nameVars.push(properCased);
+          [' (USA).png', ' (Japan).png', ' (Japan)__.png', ' (Europe).png', '.png'].forEach(s => {
+            nameVars.forEach(nv => {
+              addCandUrl('https://raw.githubusercontent.com/libretro-thumbnails/' + libretroRepo + '/master/Named_Boxarts/' + encodeURIComponent(nv + s));
+            });
+          });
+        });
+      }
+
+      // Try candidates one by one until a valid image blob is retrieved
+      for (const url of candidateUrls.slice(0, 8)) {
+        if (autoScanCancelled) return null;
+        try {
+          let blob = null;
+          // Companion fetch
+          try {
+            const compFetchUrl = 'http://127.0.0.1:38999/fetch_image?url=' + encodeURIComponent(url);
+            const r = await fetch(compFetchUrl, { signal: AbortSignal.timeout(4000) });
+            if (r.ok) blob = await r.blob();
+          } catch(e) {}
+
+          // Weserv proxy fallback
+          if (!blob) {
+            try {
+              const weservUrl = 'https://images.weserv.nl/?url=' + encodeURIComponent(url);
+              const rWeserv = await fetch(weservUrl, { signal: AbortSignal.timeout(4000) });
+              if (rWeserv.ok) blob = await rWeserv.blob();
+            } catch(e) {}
+          }
+
+          // Direct fetch
+          if (!blob) {
+            try {
+              const rDirect = await fetch(url, { mode: 'cors', signal: AbortSignal.timeout(4000) });
+              if (rDirect.ok) blob = await rDirect.blob();
+            } catch(e) {}
+          }
+
+          if (blob && blob.size > 2048) {
+            return blob;
+          }
+        } catch(e) {}
+      }
+      return null;
+    }
+
+    async function startAutoScanMissingCovers() {
+      const c = consolesMap.get(currentConsoleKey);
+      if (!c) {
+        showToast('กรุณาเลือกเครื่องเกมก่อนสแกน', 'warning');
+        return;
+      }
+      
+      const missing = c.games.filter(g => !g.imageUrl);
+      if (missing.length === 0) {
+        showToast('ทุกเกมในเครื่อง ' + c.info.name + ' มีภาพปกครบถ้วนแล้ว! ✨', 'success');
+        return;
+      }
+
+      autoScanCancelled = false;
+      document.getElementById('autoScanConsoleTitle').textContent = c.info.name;
+      document.getElementById('autoScanCoverModal').classList.add('open');
+      document.getElementById('btnStopAutoScan').textContent = 'หยุดสแกน';
+      document.getElementById('btnStopAutoScan').disabled = false;
+
+      const progressText = document.getElementById('autoScanProgressText');
+      const successText = document.getElementById('autoScanSuccessText');
+      const progressBar = document.getElementById('autoScanProgressBar');
+      const gameText = document.getElementById('autoScanCurrentGame');
+      const previewImg = document.getElementById('autoScanPreviewImg');
+      const previewPlace = document.getElementById('autoScanPreviewPlaceholder');
+      const statusTitle = document.getElementById('autoScanStatusTitle');
+
+      let successCount = 0;
+      let imagesDir = null;
+      try {
+        imagesDir = await c.handle.getDirectoryHandle('images', { create: true });
+        c.imagesHandle = imagesDir;
+      } catch(err) {
+        showToast('ไม่สามารถเปิดหรือสร้างโฟลเดอร์ images ได้: ' + err.message, 'error');
+        stopAutoScan();
+        return;
+      }
+
+      for (let i = 0; i < missing.length; i++) {
+        if (autoScanCancelled) break;
+        const game = missing[i];
+        
+        statusTitle.textContent = 'กำลังสแกนหาภาพปกเกม (' + (i + 1) + '/' + missing.length + ')...';
+        gameText.textContent = game.name;
+        progressText.textContent = (i + 1) + ' / ' + missing.length + ' เกม';
+        progressBar.style.width = Math.round(((i) / missing.length) * 100) + '%';
+
+        previewImg.style.display = 'none';
+        previewPlace.style.display = 'block';
+        previewPlace.textContent = 'กำลังค้นหาปกจากชื่อเกม...';
+
+        try {
+          const coverBlob = await autoFetchCoverForGame(game, c);
+          if (coverBlob) {
+            const baseName = game.isFolder 
+              ? game.fileName 
+              : game.fileName.replace(/\.[^/.]+$/, '');
+            const imgExt = coverBlob.type === 'image/jpeg' ? '.jpg' : '.png';
+            const imgFileName = baseName + '-image' + imgExt;
+
+            const imgHandle = await imagesDir.getFileHandle(imgFileName, { create: true });
+            const imgWritable = await imgHandle.createWritable();
+            await imgWritable.write(coverBlob);
+            await imgWritable.close();
+
+            const imageRelPath = './images/' + imgFileName;
+            const xmlPath = game.isFolder 
+              ? './' + game.fileName + '/' + game.primaryFileName
+              : './' + game.fileName;
+
+            await updateGameInXml(c, {
+              pathRel: xmlPath,
+              folderNameMatch: game.isFolder ? game.fileName : null,
+              image: imageRelPath
+            });
+
+            const blobUrl = URL.createObjectURL(coverBlob);
+            game.imageUrl = blobUrl;
+            game.coverHandle = imgHandle;
+            game.coverFileName = imgFileName;
+
+            previewImg.src = blobUrl;
+            previewImg.style.display = 'block';
+            previewPlace.style.display = 'none';
+
+            successCount++;
+            successText.textContent = 'สำเร็จ: ' + successCount;
+          } else {
+            previewPlace.textContent = '❌ ไม่พบภาพปกที่ตรงกับชื่อนี้';
+          }
+        } catch(err) {
+          console.warn('Error auto scanning cover for ' + game.name, err);
+        }
+
+        await new Promise(r => setTimeout(r, 250));
+      }
+
+      progressBar.style.width = '100%';
+      statusTitle.textContent = autoScanCancelled ? '⏹️ หยุดการสแกนแล้ว' : '🎉 สแกนหาปกเสร็จสมบูรณ์!';
+      document.getElementById('btnStopAutoScan').textContent = 'ปิดหน้าต่าง';
+      renderGamesList();
+      showToast('สแกนหาปกเสร็จสิ้น! เพิ่มปกสำเร็จ ' + successCount + ' จาก ' + missing.length + ' เกม', successCount > 0 ? 'success' : 'warning');
+    }
+
+    function stopAutoScan() {
+      autoScanCancelled = true;
+      document.getElementById('autoScanCoverModal').classList.remove('open');
     }
 
     // ==========================================
@@ -2973,6 +4181,11 @@
         // 4. Remove from in-memory array
         const deletedBytes = targetGameForDelete.size || 0;
         c.games = c.games.filter(g => g.fileName !== targetGameForDelete.fileName);
+        if (c.games.length === 0) {
+          consolesMap.delete(c.folder);
+          currentConsoleKey = consolesMap.size > 0 ? consolesMap.keys().next().value : '';
+          if (currentConsoleKey) selectConsole(currentConsoleKey);
+        }
 
         // Dynamic real-time storage & game count updates (free space increases)
         const newFree = modifyStorageBytes(-deletedBytes);
@@ -3005,7 +4218,7 @@
 
       const newTitle = prompt('แก้ไขชื่อเกม:', game.name);
       if (newTitle === null) return;
-      const cleanTitle = newTitle.trim() || game.name;
+      const cleanTitle = sanitizeInput(newTitle.trim() || game.name, 128);
 
       const pathRel = game.isFolder 
         ? './' + game.fileName + '/' + game.primaryFileName
@@ -3113,7 +4326,7 @@
           el = doc.createElement(tagName);
           targetNode.appendChild(el);
         }
-        el.textContent = val;
+        el.textContent = sanitizeXML(val);
       };
 
       if (data.name !== undefined) setOrCreateTag('name', data.name);
@@ -3442,6 +4655,28 @@
         closeEditCoverModal();
         closeDeleteModal();
         closeGoogleSitesModal();
+      }
+    });
+
+    document.addEventListener('paste', (e) => {
+      const editModal = document.getElementById('editCoverModal');
+      if (editModal && editModal.classList.contains('open')) {
+        const items = e.clipboardData ? e.clipboardData.items : [];
+        for (let i = 0; i < items.length; i++) {
+          if (items[i].type && items[i].type.startsWith('image/')) {
+            const blob = items[i].getAsFile();
+            if (blob) {
+              handleNewCoverSelect([blob]);
+              const badge = document.getElementById('coverSourceBadge');
+              if (badge) {
+                badge.textContent = '✅ รูปจากคลิปบอร์ด (Ctrl+V)';
+                badge.style.color = '#10b981';
+              }
+              showToast('วางภาพจากคลิปบอร์ด (Ctrl+V) สำเร็จ! กดบันทึกรูปปกได้เลย', 'success');
+              break;
+            }
+          }
+        }
       }
     });
   </script>

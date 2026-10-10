@@ -1,0 +1,15 @@
+# Archives & Temporary files
+*.zip
+*.tar.gz
+*.bak
+*.log
+temp_*
+.system_generated/
+
+# OS metadata
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Node
+node_modules/
