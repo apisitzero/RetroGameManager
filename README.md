@@ -5,8 +5,7 @@
 
 ---
 
-![Uploading ดาวน์โหลด (8).<img width="768" height="1024" alt="ดาวน์โหลด (8)" src="https://github.com/user-attachments/assets/88814a18-8d27-4115-b52f-68a00ce04735" />
-png…]()
+<img width="768" height="1024" alt="mmmm" src="https://github.com/user-attachments/assets/4eeff965-4044-4a04-8843-7f4bc7e296f5" />
 
 
 ---
