@@ -1,4 +1,4 @@
-# 🎮 Retro Game & SD Card Manager
+# 🎮 Retro Game & SD Card Manager V 2.0
 
 > **โปรแกรมจัดการไฟล์เกมและเมมโมรี่การ์ดเครื่องเกมเรโทรแบบเชื่อมต่อตรง (Direct Memory Binding)**  
 > 🌟 จัดทำโดย: **[เพจ เล่าเรื่องเกม](https://www.facebook.com/tellgames/)** | แจกจ่ายให้ใช้งานฟรีสำหรับคนรักเกมเรโทรทุกคน!
@@ -12,7 +12,7 @@
 
 ## 📖 เกี่ยวกับโปรแกรม
 
-**Retro Game & SD Card Manager** คือเว็บแอปพลิเคชันสำหรับจัดการเมมโมรี่การ์ด (SD Card / TF Card / พาร์ทิชัน EASYROMS) ของเครื่องเล่นเกมพกพาเรโทร (เช่น Anbernic, Miyoo Mini, Powkiddy, R36S, TrimUI, Batocera, ArkOS, AmberELEC ฯลฯ) 
+**Retro Game & SD Card Manager V 2.0** คือเว็บแอปพลิเคชันสำหรับจัดการเมมโมรี่การ์ด (SD Card / TF Card / พาร์ทิชัน EASYROMS) ของเครื่องเล่นเกมพกพาเรโทร (เช่น Anbernic, Miyoo Mini, Powkiddy, R36S, TrimUI, Batocera, ArkOS, AmberELEC ฯลฯ) 
 
 ทำงานโดยตรงผ่าน **File System Access API** บนเว็บเบราว์เซอร์ ช่วยให้คุณสามารถอ่าน, แก้ไข, เพิ่มเกมใหม่, เปลี่ยนภาพหน้าปก, ลบเกมที่ไม่ต้องการ และจัดระเบียบฐานข้อมูล `gamelist.xml` บนเมมการ์ดจริงได้อย่างรวดเร็วและปลอดภัย โดยไม่ต้องติดตั้งโปรแกรมเสริมขนาดใหญ่
 
