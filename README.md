@@ -5,9 +5,8 @@
 
 ---
 
-<p align="center">
-  <img width="520" alt="Retro Game Manager Banner" src="https://github.com/user-attachments/assets/eae1a58f-465f-497e-878a-48b52999a4c0" />
-</p>
+![Uploading ดาวน์โหลด (8).png…]()
+
 
 ---
 
